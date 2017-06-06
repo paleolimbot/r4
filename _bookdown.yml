@@ -1,5 +1,0 @@
-book_filename: "bookdown-demo"
-rmd_subdir: yes
-language:
-  ui:
-    chapter_name: "Chapter "
