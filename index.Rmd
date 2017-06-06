@@ -14,6 +14,6 @@ description: "A collection of R lessons for CWRS projects"
 
 # Introduction {-}
 
-TODO: write this section
+TODO: write this section 
 
 This course material was written using the [bookdown](https://bookdown.org/) package inside [RStudio](https://www.rstudio.com/). Pages were generated using [pandoc](http://pandoc.org/) and [gitbook](https://www.gitbook.com/). The source is [available on github](http://github.com/paleolimbot/r4cwrs).
