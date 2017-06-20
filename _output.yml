@@ -3,7 +3,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">A Canadian Intro to QGIS</a></li>
+        <li><a href="./">R for the CWRS</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/paleolimbot/qgis-intro/edit/master/%s
+    edit: https://github.com/paleolimbot/r4cwrs/edit/master/%s
