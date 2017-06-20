@@ -3,7 +3,9 @@ title: "R in the CWRS"
 author: "The R Programming Group at the CWRS"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output: 
+  "bookdown::gitbook":
+    df_print: tibble
 documentclass: book
 bibliography: book.bib
 biblio-style: apalike
