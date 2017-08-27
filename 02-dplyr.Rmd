@@ -1,5 +1,7 @@
 
-# Filtering, Subsetting, and Summarising using dplyr
+# Working with Tables using the Tidyverse
+
+In this tutorial we will introduce the **data frame**, or the object type that R uses to store tables. Most of the data you will work with in R can be represented by a table (think an excel sheet), and one of the main advantages of using R is that the data frame is a powerful and intuitive interface for tabular data. In this tutorial we will use the [tidyverse](http://www.tidyverse.org/) to manipulate and summarise tabular data. The tutorial is a companion to the [Data transformation](http://r4ds.had.co.nz/transform.html) chapter in [R for Data Science](http://r4ds.had.co.nz/).
 
 ## Prerequisites
 
@@ -19,11 +21,15 @@ library(rclimateca)
 
 Finally, you will need to obtain the sample data using the `getClimateData()` function in the **rclimateca** package. Copy/paste the statement below to load the sample data for this tutorial.
 
-```{r}
+```{r, results='hide'}
 climate_data <- getClimateData(c(27141, 6354), nicenames = TRUE)
 ```
 
+It's worth mentioning a little bit about what this data frame contains, since we'll be working with it for the rest of this tutorial. Each row contains a number of parameters that are available on a monthly basis from two Environment Canada climate stations (Kentville Agricultural Research Station is 27141; Greenwood Station is 6354). The `stationid` column identifies where the values were measured, the `year` and `month` column identify when the values were measured, and the rest of the columns contain the measured values. For each measured value column, there is a `flag` column that gives additional information about the measurement (for the most part, we will ignore these columns). The only column names that are slightly cryptic are `extrmaxtemp` and `extrmintemp`, which are the extreme maximum and minimum temperatures measured in that month, respectively.
+
 ## Viewing a Data Frame
+
+The variable we have just created (`climate_data`) is a **data frame**, which is a table of values much like you would find in a spreadsheet. Each column in the data frame represents a variable (in this case, the year and month where each observation was measured, the mean temperature, total precipitation, and many others), and each row in the table represents an observation (for example, the mean temperature and total precipitation in May of 1999 at Greenwood).
 
 In RStudio's "Environment" tab (usually at the top right of the screen), you should see a variable called `climate_data` in the list. You can inspect it by clicking on the variable name, after which a tab will appear displaying the contents of the variable you just loaded. Clicking the little arrow to the left of the name will display the structure of the data frame, including the column names and some sample values. You can also do both of these things using the R commands `View()` and `str()`, respectively. Also useful is the `head()` function, which will display the first few rows of a data frame.
 
@@ -38,8 +44,6 @@ str(climate_data) # will display a text summary of the object
 ```{r}
 head(climate_data)
 ```
-
-It's worth mentioning a little bit about what this data frame contains, since we'll be working with it for the rest of this tutorial. Each row contains a number of parameters that are available on a monthly basis from two Environment Canada climate stations (Kentville Agricultural Research Station is 27141; Greenwood Station is 6354). The `stationid` column identifies where the values were measured, the `year` and `month` column identify when the values were measured, and the rest of the columns contain the measured values. For each measured value column, there is a `flag` column that gives additional information about the measurement (for the most part, we will ignore these columns). The only column names that are slightly cryptic are `extrmaxtemp` and `extrmintemp`, which are the extreme maximum and minimum temperatures measured in that month, respectively.
 
 ## Selecting Columns
 
@@ -155,7 +159,45 @@ july_precip3 <- climate_data %>%
   select(stationid, year, month, totalprecip)
 ```
 
+## Summarising A Data Frame
+
+So far we have looked at subsets of `climate_data`, but what if we want yearly averages instead of monthly averages? Using the tidyverse, we can `group_by()` the `stationid` and `year` column, and `summarise()`:
+
+```{r}
+climate_data %>%
+  group_by(stationid, year) %>%
+  summarise(mean_temp = mean(meantemp))
+```
+
+Here `group_by()` gets a list of columns, for which each unique combination of values will get one row in the output. `summarise()` gets a list of expressions that are evaluated for every unique combination of values defined by `group_by()` (e.g., `mean_temp` is the `mean()` of the `meantemp` column for each station, for each year). Often, we want to include a number of summary columns in the output, which we can do by pasing more expressions to `summarise()`:
+
+```{r}
+climate_data %>%
+  group_by(stationid, year) %>%
+  summarise(mean_temp = mean(meantemp), 
+            max_temp = max(extrmaxtemp),
+            min_temp = min(extrmintemp))
+```
+
+You will notice that in 1942 the mean temperature appears to be `NA`, or missing. This is because R propogates missing values unless you explicitly tell it not to. To fix this, you could replace `mean(meantemp)` with `mean(meantemp, na.rm = TRUE)`. Other useful functions to use inside `summarise()` include `mean()`, `median()`, `sd()`, `sum()`, `min()`, and `max()`. These all take a vector of values and produce a single aggregate value suitable for use in `summarise()`. One special function, `n()`, you can use (with no arguments) inside `summarise()` to tell you how many observations were aggregated to produce the values in that row.
+
+```{r}
+climate_data %>%
+  group_by(stationid, year) %>%
+  summarise(mean_temp = mean(meantemp, na.rm = TRUE), 
+            max_temp = max(extrmaxtemp, na.rm = TRUE),
+            min_temp = min(extrmintemp, na.rm = TRUE), 
+            n = n())
+```
+
+Unsurprisingly, there are twelve observations per year, since there are twelve rows (one per month) in our original data frame. It's always a good idea to include `n()` inside `summarise()`, if nothing else as a check to make sure you've used `group_by()` with the correct columns.
+
+## Excercises
+
+- Assign the data frame we just created to a variable, and inspect it using `View()` and `str()`. Which years were the warmest? Which years were the coldest?
+- Create a similar data frame to the one we just created but with precipitation. In which years did the most precipitation fall? (Hint: you will need to use the `sum()` function)
+- Most of the data are from Greenwood (`stationid` 6354), with fewer years from Kentville (`stationid` 27141). How many years are available for each station, and what is the range of years where data is available for each station? (Hint: you will need to `group_by(stationid)`)
+
 ## Summary
 
-In this tutorial we introduced the use of `select()`, `filter()` and the pipe (`%>%`). These functions are the building blocks of powerful tools in the tidyverse such as `group_by()`, `summarise()`, `arrange()`, `mutate()` and many others.
-
+In this tutorial we introduced the use of `select()`, `filter()` and the pipe (`%>%`). We also used `group_by()` and `summarise()` to provide summary statistics from a data frame. These functions are the building blocks of other powerful tools in the tidyverse.

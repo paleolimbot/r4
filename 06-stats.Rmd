@@ -1,0 +1,30 @@
+
+# Computing statistics in R
+
+Intro
+
+## Prerequisites
+
+The prerequisites for this tutorial are `tidyverse`. If this package isn't installed, you'll have to install it using `install.packages()`.
+
+```{r, eval = FALSE}
+install.packages("tidyverse")
+```
+
+Load the packages when you're done! If there are errors, you may have not installed the above packages correctly!
+
+```{r}
+library(tidyverse)
+```
+
+Finally, you will need to obtain the sample data...
+
+## Preparing data
+
+## Loading data
+
+## Cleaning data
+
+## Summary
+
+Tutorial summary

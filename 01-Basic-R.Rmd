@@ -7,9 +7,11 @@ When you open RStudio, you are presented with the ominous `>` of the R console. 
 
 To complete this tutorial, you will need R and RStudio installed, and RStudio open. If you can see the `>` of the R console in the lower left part of your screen, you are good to go!
 
+![The basic R console.](01-Basic-R-Figs/r_console.png)
+
 ## Expressions and Variables
 
-Let's just do the basics: try typing in something like this at the prompt.
+Let's start with the basics. Try typing in something like this at the prompt:
 
 ```{r}
 1 + 1
@@ -28,8 +30,6 @@ Let's just do the basics: try typing in something like this at the prompt.
 ```
 
 As you can see, R works just like a calculator and evaluates all of these **expressions** just like you would expect. If we would like to save the result of one of these expressions we can assign that value to a **variable** like this:
-
-
 
 ```{r}
 x <- 1 + 1
@@ -55,7 +55,7 @@ So far we've just used numbers, but often we need to enter text into R. Whenever
 mytext <- "I am text"
 ```
 
-Text (called **strings**) are one of many data types available in R.
+Text (called **character** vectors) are one of many data types available in R.
 
 ## Functions
 
@@ -197,18 +197,26 @@ This would be equivalent to:
 There is one other useful way to index a vector using a vector, which is to use a `TRUE`/`FALSE` vector. This is probably the most useful of the indexing methods, because it allows you to do things like:
 
 ```{r}
-myvector[myvector == 8]
+myvector[myvector > 7]
 ```
 
-This works because `myvector == 8` is, itself, a `TRUE`/`FALSE` vector with the same length as `myvector`, indicating whether or not it equals 8 at any given position.
+This works because `myvector > 7` is, itself, a `TRUE`/`FALSE` vector with the same length as `myvector`, indicating whether or not it is greater than 7 at any given position.
 
 ```{r}
-myvector == 8
+myvector > 7
 ```
+
+## Using the Script Editor
+
+In reality, very little of the code you type will be directly in the prompt. Instead, you will use RStudio's script editor to run commands so that you can go back and edit them or run them from the beginning. To create a new R script, choose *File*, *New File*, and *R script* (you can also choose the little green "+" button at the top left of the console window). A blank R script should appear in a new tab.
+
+![A new R script in the RStudio script editor.](01-Basic-R-Figs/r_editor.png)
+
+When you type a command in the editor and press enter, nothing happens! This is because the editor is meant to build script that contain multiple lines, unlike the console, which is meant to execute a single line at a time. To run a command you have typed in the script editor, press Ctrl+Enter (Command+Enter on a Mac). You can even select multiple lines, press Ctrl+Enter, and they will all run at once! You can also save the script and choose *Source* to run the whole thing.
 
 ## Excercises
 
-To practice the basics of R, complete the very first [swirl](http://swirlstats.com/) module, R Programming / Basic Building Blocks. To do this, you'll need to install and load **swirl** like this:
+To practice the basics of R, complete the very first [swirl](http://swirlstats.com/) module, R Programming / Basic Building Blocks. To do this, you'll need to install and load **swirl** by typing this at the R prompt:
 
 ```{r, eval = FALSE}
 install.packages("swirl")
@@ -220,4 +228,4 @@ You should get a friendly greeting that will prompt you to choose a course (you 
 
 ## Summary
 
-In this lesson we covered **expressions**, **variables**, **functions**, **vectors**, and **indexing**, all of which will help you get the most out of the tutorials in this series. For more information, check out the [Workflow: basics](http://r4ds.had.co.nz/workflow-basics.html) tutorial in the free online book, [R for Data Science](http://r4ds.had.co.nz/).
+In this lesson we covered **expressions**, **variables**, **functions**, **vectors**, and **indexing**, all of which will help you get the most out of the tutorials in this series. For more information, check out the [Workflow: basics](http://r4ds.had.co.nz/workflow-basics.html) and [Workflow: scripts](http://r4ds.had.co.nz/workflow-scripts.html) tutorial in the free online book, [R for Data Science](http://r4ds.had.co.nz/).

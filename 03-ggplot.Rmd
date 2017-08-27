@@ -1,0 +1,34 @@
+
+# Creating Visualizations using ggplot
+
+Intro
+
+## Prerequisites
+
+The prerequisites for this tutorial are `tidyverse` and `rclimateca`. If these packages aren't installed, you'll have to install them using `install.packages()`.
+
+```{r, eval = FALSE}
+install.packages("tidyverse")
+install.packages("rclimateca")
+```
+
+Load the packages when you're done! If there are errors, you may have not installed the above packages correctly!
+
+```{r}
+library(tidyverse)
+library(rclimateca)
+```
+
+Finally, you will need to obtain the sample data using the `getClimateData()` function in the **rclimateca** package. Copy/paste the statement below to load the sample data for this tutorial.
+
+```{r, results='hide'}
+climate_data <- getClimateData(c(27141, 6354), nicenames = TRUE)
+```
+
+It's worth mentioning a little bit about what this data frame contains, since we'll be working with it for the rest of this tutorial. Each row contains a number of parameters that are available on a monthly basis from two Environment Canada climate stations (Kentville Agricultural Research Station is 27141; Greenwood Station is 6354). The `stationid` column identifies where the values were measured, the `year` and `month` column identify when the values were measured, and the rest of the columns contain the measured values. For each measured value column, there is a `flag` column that gives additional information about the measurement (for the most part, we will ignore these columns). The only column names that are slightly cryptic are `extrmaxtemp` and `extrmintemp`, which are the extreme maximum and minimum temperatures measured in that month, respectively.
+
+## Using ggplot
+
+## Summary
+
+Tutorial summary
