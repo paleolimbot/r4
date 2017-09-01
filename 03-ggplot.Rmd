@@ -22,12 +22,23 @@ library(rclimateca)
 Finally, you will need to obtain the sample data using the `getClimateData()` function in the **rclimateca** package. Copy/paste the statement below to load the sample data for this tutorial.
 
 ```{r, results='hide'}
-climate_data <- getClimateData(c(27141, 6354), nicenames = TRUE)
+climate_data <- getClimateData(c(27141, 6354), year = 2000:2003,
+                               nicenames = TRUE) %>%
+  left_join(ecclimatelocs %>% select(station_name = Name, stationid = `Station ID`),
+            by = "stationid")
 ```
 
 It's worth mentioning a little bit about what this data frame contains, since we'll be working with it for the rest of this tutorial. Each row contains a number of parameters that are available on a monthly basis from two Environment Canada climate stations (Kentville Agricultural Research Station is 27141; Greenwood Station is 6354). The `stationid` column identifies where the values were measured, the `year` and `month` column identify when the values were measured, and the rest of the columns contain the measured values. For each measured value column, there is a `flag` column that gives additional information about the measurement (for the most part, we will ignore these columns). The only column names that are slightly cryptic are `extrmaxtemp` and `extrmintemp`, which are the extreme maximum and minimum temperatures measured in that month, respectively.
 
 ## Using ggplot
+
+The Grammar of Graphics (the "gg" in "ggplot") is a way of describing a graphic that is derived from data, which in R is done using the `ggplot()` function and its many friends. Unlike other plotting functions, `ggplot()` builds graphics from the data up (rather than starting with a template of a graphic and working backward). We will start with an example:
+
+```{r}
+ggplot(climate_data, aes(x = meantemp, y = totalprecip, colour = station_name)) +
+  geom_point()
+```
+
 
 ## Summary
 

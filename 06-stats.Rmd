@@ -5,25 +5,227 @@ Intro
 
 ## Prerequisites
 
-The prerequisites for this tutorial are `tidyverse`. If this package isn't installed, you'll have to install it using `install.packages()`.
+The prerequisites for this tutorial are the `tidyverse` and `broom` packages. If these packages aren't installed, you'll have to install them using `install.packages()`.
 
 ```{r, eval = FALSE}
-install.packages("tidyverse")
+install.packages("tidyverse") # will also install the broom package
 ```
 
 Load the packages when you're done! If there are errors, you may have not installed the above packages correctly!
 
 ```{r}
 library(tidyverse)
+library(rclimateca)
+library(broom)
 ```
 
 Finally, you will need to obtain the sample data...
 
-## Preparing data
+```{r, results='hide'}
+climate_data <- getClimateData(c(27141, 6354), year = 2000:2003,
+                               nicenames = TRUE) %>%
+  left_join(ecclimatelocs %>% select(station_name = Name, stationid = `Station ID`),
+            by = "stationid")
+```
 
-## Loading data
+## Correlation and Linear Regression
 
-## Cleaning data
+Tests for correlation of two variables test whether or not a relationship exists between the two variables (i.e., can any of the variance of one variable be explained by variance in the other). This is often done to test association between two parameters when these measurements are paired. In our example, we will test the corellation between mean monthly temperature and total monthly precipitation, to ascertain whether or not a statistically significant relationship exists between the two.
+
+### Test Data
+
+Correlation tests all require a data frame with one column for the x variable and one column for the y variable. It is often useful to keep other qualifying variables that give context to each observation, but are not required by the test. In our case, the x variable will be `meantemp` and the y variable will be `totalprecip`.
+
+```{r}
+correlation_test_data <- climate_data %>% 
+  select(station_name, year, month, meantemp, totalprecip)
+correlation_test_data
+```
+
+### Graphical Test
+
+A graphical test of the correlation of two variables is a biplot with one variable on the x-axis, and one variable on the y-axis. The variable on the x-axis should be the indepenent variable for the purposes of the test. This will look something like `ggplot(my_data_frame, x = independent_var, y = dependent_var)` followed by `geom_point()`. You can add a linear regression to the plot using `stat_smooth(method = lm)`. This will add the best-fit line whose slope and intercept we will calculate in the next section.
+
+```{r}
+ggplot(correlation_test_data, aes(x = meantemp, y = totalprecip)) +
+  geom_point() +
+  stat_smooth(method = lm)
+```
+
+Based on inspection of the biplot, you should be able to have a hunch as to whether or not a linear relationship exists between the two variables. In our case, it looks like there is a weak negative correlation between mean temperature and total preciptiation (i.e., the higher the mean temperature for a given month, the lower the total precipitation for the same month).
+
+### The Pearson product-moment correlation coefficient (*r*)
+
+The Pearson product-moment correlation coefficient (usually known as the *r* value) is a test of how well a line of best fit is able to model the data (generally a standard least-squares linear regression). The coefficient ranges from -1 (perfect negative linear relationship) to +1 (perfect positive linear relationship). Generally the square of this value is reported (r^2^), and can be interpreted as "xx % of the variance in `y_variable` can be explained by the variance in `x_variable`". There is no statistical way to test how good the linear relationship is, but it is possible to test that the coefficient is not equal to zero (i.e., it is possible to reject the notion that there `x_variable` and `y_variable` have no linear relationship).
+
+#### Assumptions
+
+The Pearson product-moment correlation coefficient assumes that `x_variable` and `y_variable` are normally distributed.
+
+#### Statistical Test
+
+Calculating the *r* value and associated p-value involves a call to `cor.test()` with `method = "pearson"`, followed by a call to `tidy()` in the **broom** package to get the test results in the form of a data frame.
+
+```{r}
+cor.test(~totalprecip + meantemp, data = correlation_test_data, 
+         method = "pearson") %>%
+  tidy()
+```
+
+The `estimate` column contains the *r* value, which you could square to get the *r^2^* value. The `p.value` column contains the p-value, which represents the probability that the two variables have no linear relationship. In our case, `totalprecip` and `meantemp` have a significant negative linear relationship (*p*=0.003).
+
+### Spearman $\rho$ or *r~s~*
+
+The Spearman correlation coefficient (abbreviated $\rho$ or *r~s~*) is a test of a one-to-one relationship between `x_variable` and `y_variable`, not necessarily linear. The test uses ranked values for `x_variable` and `y_variable`, so outliers are less of an issue than they are with the Pearson coefficient. Similar to the Perason coefficient, the *r~s~* value varies from -1 (a perfect one-to-one negative relationship) to 1 (a perfect one-to-one positive relationship). Similar to the Pearson coefficient, it is only possible to test that the value is not equal to zero (i.e., i.e., it is possible to reject the notion that there `x_variable` and `y_variable` have no one-to-one relationship).
+
+#### Assumptions
+
+The Spearman correlation coefficient does not make any assumptions about the distribution of `x_variable` or `y_variable`.
+
+#### Statistical Test
+
+Calculating the *r~s~* value and associated p-value involves a call to `cor.test()` with `method = "spearman"`, followed by a call to `tidy()` in the **broom** package to get the test results in the form of a data frame.
+
+```{r}
+cor.test(~totalprecip + meantemp, data = correlation_test_data, 
+         method = "spearman") %>%
+  tidy()
+```
+
+The `estimate` column contains the *r~s~* value, and the `p.value` column contains the p-value, which represents the probability that the two variables are not correlated. In our case, `totalprecip` and `meantemp` have a significant negative relationship (*p*<0.001).
+
+### Linear Regression
+
+Whereas a Pearson coefficient is meant to assess the quality of a linear relationship, linear regression is meant to determine the slope and intercept of that relationship in the form $y = mx + b$, where $y$ is `y_variable`, and x is `x_variable`. By obtaining $m$ and $b$, we can use `x_variable` to calculate `y_variable` for any value of `x_variable`.
+
+#### Assumptions
+
+The standard linear regression (a least-squares regression) works best if both `x_variable` and `y_variable` are symmetrically distributed.
+
+#### Statistical Test
+
+Calculating the coefficients $m$ and $b$ for a linear regression involves a call to `lm()` with a formula `y_variable ~ x_variable` (note this is slightly different than for correlation testing) and `data = my_data_frame`. For our example, the call would look like this:
+
+```{r}
+lm(totalprecip ~ meantemp, data = correlation_test_data) %>%
+  tidy()
+```
+
+The `term` column in the ouput refers to the name of the input column in the righthand side of the input formula, or "(Intercept)" for the intercept, and the `estimate` column refers to the coefficient itself. In the example, this means we can predict  `totalprecip` using the (approximate) expression `-1.44 * meantemp + 101.08`. 
+
+In practice, we want to use the `predict()` function to do this math for us (because if we change some code above that alters which observations are used to create the regression, it will change the coefficient and intercept, and any code that relies on the hard-coded version will be incorrect). This is a three step process: first, save the result of `lm()` to a variable, then create a data frame with a column that has the same name as `x_variable`, then use `mutate()` to create a new column with the predictions from `predict()`. Note that we use a special trick in `mutate()` to pass the entire data frame to the `newdata` argument of `predict()` (the `.` represents the whole data frame as opposed to any particular column, which we can refer to by name within `mutate()`). For our example, we might be interested in the predicted total monthly precipitation values when the mean monthly temperature is 5, 10, 15, and 20 degrees.
+
+```{r}
+model <- lm(totalprecip ~ meantemp, data = climate_data)
+tibble(meantemp = c(5, 10, 15, 20)) %>%
+  mutate(totalprecip_predicted = predict(model, newdata = .))
+```
+
+## Significant differences with two groups
+
+### The t-test
+
+The ANOVA test tests whether or not there is a significant difference between a value exactly two groups of observations (an ANOVA test can be used when there are more than two groups). We will be using this test to ascertain whether or not there is a significant difference in temperature when these observations are grouped by station (note that there are exactly two stations, Kentville and Greenwood).
+
+#### Assumptions
+
+The t-test assumes that the two samples of data values are normally distributed and independent.
+
+#### Test Data
+
+A t-test requires a data frame with a column containing the values to test, and a column containing the variable to group by (usually contains strings like "group1", "group2", "group3", etc.). It is often useful to keep other qualifying variables that give context to each observation, but are not required by the test. In our case, the column in `climate_data` that contains the values we are testing is `meantemp`, and the column that contains the groups is `station_name`.
+
+```{r}
+t_test_data <- climate_data %>% 
+  select(station_name, year, month, meantemp)
+```
+
+#### Graphical Test
+
+The graphic for an ANOVA test is a series of boxplots, with exactly two variables on the x axis. This is generated using something like `ggplot(my_data_frame, aes(x = group_column, y = value_column))` followed by `geom_boxplot()`. For the test we are about to do, the graphic looks like this:
+
+```{r}
+ggplot(t_test_data, aes(x = station_name, y = meantemp)) +
+  geom_boxplot()
+```
+
+Based on the graphic, you should be able to have a hunch as to whether or not one boxplot is significantly different than the other boxplot (when grouped by station, it looks like there isn't much difference in temperature). This is important, because it will make interpreting your results more intuitive and allows you to check for errors.
+
+## Statistical Test
+
+Performing the t-test uses a call to the `t.test()` function in the form `t.test(value_column ~ group_column, data = my_data_frame)`, and a call to the `tidy()` function in the **broom** package to view the results in the form of a data frame. In the case of the Kentville/Greenwood climate data, the two tests look like this:
+
+```{r}
+t.test(meantemp ~ station_name, data = t_test_data) %>% tidy()
+```
+
+Here the `estimate` column is the estimated difference between the means of the two groups, and the `p.value` column is the p-value, which represents the probability that there is no significant difference between the two groups (*p*=0.97).
+
+### Paired t-test
+
+Paired version of the t-test...
+
+### Wilcox Rank Sum Test
+
+The Wilcox Rank Sum Test is...
+
+### Mann-Whitney Test
+
+The Wilcox Rank Sum Test is...
+
+
+## Significant differences with more than two groups
+
+### The ANOVA test
+
+The ANOVA test tests whether or not there is a significant difference between a value using two or more groups of observations (an ANOVA test when there are only two groups is identical to a t-test). We will be using this test to ascertain whether or not there is a significant difference in temperature when these observations are grouped by (1) year and (2) month.
+
+#### Assumptions
+
+The ANOVA test assumes all samples of data values are normally distributed and independent.
+
+#### Test Data
+
+An ANOVA test requires a data frame with a column containing the values to test, and a column containing the variable to group by (usually contains strings like "group1", "group2", "group3", etc.). It is often useful to keep other qualifying variables that give context to each observation, but are not required by the test. In our case, the column in `climate_data` that contains the values we are testing is `meantemp`, and the column that contains the groups is `year` for the first test, and `month` for the second.
+
+```{r}
+anova_test_data <- climate_data %>% 
+  select(station_name, year, month, meantemp)
+```
+
+### Graphical Test
+
+The graphic for an ANOVA test is a series of boxplots, with two or more variables on the x axis. This is generated using something like `ggplot(my_data_frame, aes(x = group_column, y = value_column))` followed by `geom_boxplot()`. For the two tests we are about to do, the graphics look like this (note that we are using `factor(year)` instead of just `year` because otherwise `ggplot` interprets the `year` variable as continuous, when we are using it to group data into discrete groups):
+
+```{r}
+ggplot(anova_test_data, aes(x = factor(year), y = meantemp)) +
+  geom_boxplot()
+```
+
+```{r}
+ggplot(anova_test_data, aes(x = factor(month), y = meantemp)) +
+  geom_boxplot()
+```
+
+Based on the graphic, you should be able to have a hunch as to whether or not each boxplot is significantly different than any other boxplot (when grouped by year, it looks like there isn't much difference in temperature, but by month, there is definitely a difference). This is important, because it will make interpreting your results more intuitive and allows you to check for errors.
+
+#### Statistical Test
+
+Performing the ANOVA test uses a call to the `aov()` function in the form `aov(value_column ~ group_column, data = my_data_frame)`, and a call to the `tidy()` function in the **broom** package to view the results in the form of a data frame. In the case of the Kentville/Greenwood climate data, the two tests look like this:
+
+```{r}
+aov(meantemp ~ year, data = climate_data) %>% tidy()
+```
+
+```{r}
+aov(meantemp ~ month, data = climate_data) %>% tidy()
+```
+
+Generally, the only column we care about in the output is the `p.value`, which is the probability that none of the groups of values are significantly different than any others. In the case of the Kentville/Greenwood climate data, there is a significant difference in temperature among months (*p*<0.001), but no significant different in temperature among years (*p*=0.83).
+
+### Krustal-Wallis Rank Sum Test
+
+Krustal Wallis Test...
 
 ## Summary
 
