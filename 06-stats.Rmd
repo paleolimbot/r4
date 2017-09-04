@@ -25,7 +25,99 @@ Finally, you will need to obtain the sample data...
 climate_data <- getClimateData(c(27141, 6354), year = 2000:2003,
                                nicenames = TRUE) %>%
   left_join(ecclimatelocs %>% select(station_name = Name, stationid = `Station ID`),
-            by = "stationid")
+            by = "stationid") %>%
+  select(station_name, year, month, everything()) %>%
+  select(-ends_with("flag"), -parseddate, -datetime, -stationid)
+```
+
+## Terminology
+
+### Grouping Variables
+
+Many statistical test functions in R use a **formula** to specify a value column and a grouping column for a test using a data frame as input. This is usually a column that contains data labels like "group1", "group1", "group1", "group2", "group2", etc., whose values divide observations into groups for which we want to test significance. In our sample data frame `climate_data`, these variables are `station_name`, `year`, `month`. The other variables represent measured values, whereas the grouping variables give context to each row. The **formula** used as input to statistical test functions is generally in the form `measure_var ~ grouping_var`, where `measure_var` and `grouping_var` are columns in a data frame.
+
+Sometimes it is necessary to use column names as grouping variables. In the case of the `climate_data` data frame, one might want to test whether the mean monthly temperature (`meantemp`) is significantly different than the extreme maximum monthly temperature (`extrmaxtemp`). Because these values are stored in two columns, there is no grouping variable that can separate these two sets of observations. This operation is possible using the `gather()` function.
+
+```{r}
+climate_data_mean_max_temp <- climate_data %>%
+  select(station_name, year, month, meantemp, extrmaxtemp) %>%
+  gather(meantemp, extrmaxtemp, key = "temperature_type", value = "temp")
+climate_data_mean_max_temp
+```
+
+In the resulting data frame, the `temperature_type` column will contain the values "meantemp" and "extrmaxtemp", which can be used as a grouping variable in a statistical test function. When using `gather()`, it is important to select only the relevant variables using `select()` first.
+
+### Paired Values
+
+Some statistical tests are only possible or are preferable with **paired values**, or values that are stored in two columns in a data frame (i.e., part of the same observation). The example above of testing whether the mean monthly temperature (`meantemp`) is significantly different than the extreme maximum monthly temperature (`extrmaxtemp`) could also be done pairwise, in which case the original data is already in the correct format for the test. Sometimes the data is provided in a form where there is a grouping variable, and measured values are in the same column (this is the result of the above example where we converted `meantemp` and `extrmaxtemp` into a grouping variable and a measured variable). We can transform a grouping variable and a measured variable into paired observations using the `spread()` function.
+
+```{r}
+climate_data_mean_max_temp %>%
+  spread(key = temperature_type, value = temp)
+```
+
+In the resulting data frame, the values that were in `temperature_type` are now column names, and the qualifying variables `station_name`, `year`, and `month` are used to identify unique observations that are paired with one another.
+
+### Independent Observations
+
+...don't have a good explanation for this.
+
+### Graphical Test
+
+autocorrelation?
+
+
+## Testing for Normality
+
+Some tests (notably the t-test, the ANOVA test, and the Pearson coefficient) require that the input values are normally distributed. For small amounts of replicate samples, this is generally a good assumption, however larger samples whose distribution cannot be assumed require a test for normality. One such test is the Shapiro-Wilk test, which is described below.
+
+### Test Data
+
+The test for normality requires a data frame with one column that contains the values that should be normally distributed. In our example, we will test whether or not mean monthly temperature is normally distributed, and whether or not total montly precipitation is normally distributed. It is also good practice to keep qualifying variables that give context to each observation.
+
+```{r}
+normal_test_data <- climate_data %>%
+  select(station_name, year, month, meantemp, totalprecip)
+normal_test_data
+```
+
+### Graphical Test
+
+The graphical test for a normality test is a histogram.
+
+```{r}
+ggplot(normal_test_data, aes(x = meantemp)) +
+  geom_histogram(bins = 30)
+```
+
+A historgram of a normally distributed variable should be symmetrical about its mean, like the histogram shown below:
+
+```{r}
+set.seed(300)
+normal_random_data <- tibble(normal_random_data = rnorm(n = 100, mean = 0, sd = 1))
+
+ggplot(normal_random_data, aes(x = normal_random_data)) +
+  geom_histogram(bins = 30)
+```
+
+A histogram of a normally distributed variable generally isn't a perfect bell curve (especially when there are few data points), but should show some evidence of symmetry about the mean value.
+
+### Statistical Test
+
+Testing for normality in R involves a call to `shapiro.test()`, followed by a call to `tidy()` in the **broom** package to view the results in the form of a data frame.
+
+```{r}
+shapiro.test(normal_test_data$meantemp) %>%
+  tidy()
+```
+
+A low `p.value` indicates that there is evidence to reject the notion that the input data are sampled from a normally distributed population. You will have to pick a level of significance ($\alpha$) as a threshold, usually 0.05 or 0.01, under which the p-value will indicate the sample was drawn from a non-normal distribution. In our example, the mean montly temperature was shown to be non-normally distributed (*p*<0.001).
+
+In the case of our normal random data, the p-value is quite high (*p*=0.72), suggesting that the data were sampled from a normally distributed population.
+
+```{r}
+shapiro.test(normal_random_data$normal_random_data) %>%
+  tidy()
 ```
 
 ## Correlation and Linear Regression
@@ -121,42 +213,59 @@ tibble(meantemp = c(5, 10, 15, 20)) %>%
   mutate(totalprecip_predicted = predict(model, newdata = .))
 ```
 
-## Significant differences with two groups
+## Significant differences
+
+Tests for significant differences tests whether or not there is a significant difference among various groups of observations. Which test to use depends on whether or not the data are normally distributed, and how many groups exist. For our example, we will be looking at the diferences in mean temperature (`meantemp`) as grouped by several grouping variables (`station_name`, `year`, and `month`).
+
+### Test Data
+
+Tests for significant differences require a data frame with a column containing the values to test, and a column containing the variable to group by (usually contains strings like "group1", "group2", "group3", etc.). It is often useful to keep other qualifying variables that give context to each observation, but are not required by the test. In our case, the column in `climate_data` that contains the values we are testing is `meantemp`, and the columns that contain the groups are `station_name`, `year`, and `month`.
+
+```{r}
+difference_test_data <- climate_data %>% 
+  select(station_name, year, month, meantemp)
+difference_test_data
+```
+
+### Graphical Test
+
+The graphic for significant difference tests is a plot with the grouping variable on the x-axis, and the value variable on the y-axis. This is generated using something like `ggplot(my_data_frame, aes(x = group_column, y = value_column))` followed by `geom_point()` and/or `geom_boxplot()`. If the grouping variable is `station_name`, such a plot might look like this:
+
+```{r}
+ggplot(difference_test_data, aes(x = station_name, y = meantemp)) +
+  geom_boxplot()
+```
+
+For smaller numbers of observations, it may make sense to plot the values of the observations themselves using `geom_point()`. In the next example, the grouping variable is `month` (note that we have to use `factor(month)` in `ggplot`, because we are using a continuous variable as a grouping variable).
+
+```{r}
+ggplot(difference_test_data, aes(x = factor(month), y = meantemp)) +
+  geom_point()
+```
+
+When there are a small number of observations in each group, it also may make sense to compute summary statistics and plot those instead of a boxplot or the observations themselves. This is done using `stat_summary()`, which by default displays a point with error bars plus or minus the standard error (the standard deviation divided by the square root of *n*).
+
+```{r}
+ggplot(difference_test_data, aes(x = factor(month), y = meantemp)) +
+  stat_summary(size = 0.25)
+```
+
+Based on the graphic, you should be able to have a hunch as to whether or not one group of observations is significantly different than another group of observations (when grouped by station, it looks like there isn't much difference in temperature, but when grouped by month, there is a clear difference). This is important, because it will make interpreting your results more intuitive and allows you to check for errors.
 
 ### The t-test
 
-The ANOVA test tests whether or not there is a significant difference between a value exactly two groups of observations (an ANOVA test can be used when there are more than two groups). We will be using this test to ascertain whether or not there is a significant difference in temperature when these observations are grouped by station (note that there are exactly two stations, Kentville and Greenwood).
+The t-test tests whether or not there is a significant difference between a value exactly two groups of observations (an ANOVA test can be used when there are more than two groups). We will be using this test to ascertain whether or not there is a significant difference in temperature when these observations are grouped by station (note that there are exactly two stations, Kentville and Greenwood).
 
 #### Assumptions
 
 The t-test assumes that the two samples of data values are normally distributed and independent.
 
-#### Test Data
-
-A t-test requires a data frame with a column containing the values to test, and a column containing the variable to group by (usually contains strings like "group1", "group2", "group3", etc.). It is often useful to keep other qualifying variables that give context to each observation, but are not required by the test. In our case, the column in `climate_data` that contains the values we are testing is `meantemp`, and the column that contains the groups is `station_name`.
-
-```{r}
-t_test_data <- climate_data %>% 
-  select(station_name, year, month, meantemp)
-```
-
-#### Graphical Test
-
-The graphic for an ANOVA test is a series of boxplots, with exactly two variables on the x axis. This is generated using something like `ggplot(my_data_frame, aes(x = group_column, y = value_column))` followed by `geom_boxplot()`. For the test we are about to do, the graphic looks like this:
-
-```{r}
-ggplot(t_test_data, aes(x = station_name, y = meantemp)) +
-  geom_boxplot()
-```
-
-Based on the graphic, you should be able to have a hunch as to whether or not one boxplot is significantly different than the other boxplot (when grouped by station, it looks like there isn't much difference in temperature). This is important, because it will make interpreting your results more intuitive and allows you to check for errors.
-
-## Statistical Test
+#### Statistical Test
 
 Performing the t-test uses a call to the `t.test()` function in the form `t.test(value_column ~ group_column, data = my_data_frame)`, and a call to the `tidy()` function in the **broom** package to view the results in the form of a data frame. In the case of the Kentville/Greenwood climate data, the two tests look like this:
 
 ```{r}
-t.test(meantemp ~ station_name, data = t_test_data) %>% tidy()
+t.test(meantemp ~ station_name, data = difference_test_data) %>% tidy()
 ```
 
 Here the `estimate` column is the estimated difference between the means of the two groups, and the `p.value` column is the p-value, which represents the probability that there is no significant difference between the two groups (*p*=0.97).
@@ -165,60 +274,28 @@ Here the `estimate` column is the estimated difference between the means of the 
 
 Paired version of the t-test...
 
-### Wilcox Rank Sum Test
+### Wilcox Rank Sum/Mann-Whitney Test
 
 The Wilcox Rank Sum Test is...
-
-### Mann-Whitney Test
-
-The Wilcox Rank Sum Test is...
-
-
-## Significant differences with more than two groups
 
 ### The ANOVA test
 
-The ANOVA test tests whether or not there is a significant difference between a value using two or more groups of observations (an ANOVA test when there are only two groups is identical to a t-test). We will be using this test to ascertain whether or not there is a significant difference in temperature when these observations are grouped by (1) year and (2) month.
+The ANOVA test tests whether or not there is a significant difference between a value using two or more groups of observations (an ANOVA test when there are only two groups is identical to a t-test). We will be using this test to ascertain whether or not there is a significant difference in mean monthly temperature when these observations are grouped by (1) year and (2) month.
 
 #### Assumptions
 
 The ANOVA test assumes all samples of data values are normally distributed and independent.
-
-#### Test Data
-
-An ANOVA test requires a data frame with a column containing the values to test, and a column containing the variable to group by (usually contains strings like "group1", "group2", "group3", etc.). It is often useful to keep other qualifying variables that give context to each observation, but are not required by the test. In our case, the column in `climate_data` that contains the values we are testing is `meantemp`, and the column that contains the groups is `year` for the first test, and `month` for the second.
-
-```{r}
-anova_test_data <- climate_data %>% 
-  select(station_name, year, month, meantemp)
-```
-
-### Graphical Test
-
-The graphic for an ANOVA test is a series of boxplots, with two or more variables on the x axis. This is generated using something like `ggplot(my_data_frame, aes(x = group_column, y = value_column))` followed by `geom_boxplot()`. For the two tests we are about to do, the graphics look like this (note that we are using `factor(year)` instead of just `year` because otherwise `ggplot` interprets the `year` variable as continuous, when we are using it to group data into discrete groups):
-
-```{r}
-ggplot(anova_test_data, aes(x = factor(year), y = meantemp)) +
-  geom_boxplot()
-```
-
-```{r}
-ggplot(anova_test_data, aes(x = factor(month), y = meantemp)) +
-  geom_boxplot()
-```
-
-Based on the graphic, you should be able to have a hunch as to whether or not each boxplot is significantly different than any other boxplot (when grouped by year, it looks like there isn't much difference in temperature, but by month, there is definitely a difference). This is important, because it will make interpreting your results more intuitive and allows you to check for errors.
 
 #### Statistical Test
 
 Performing the ANOVA test uses a call to the `aov()` function in the form `aov(value_column ~ group_column, data = my_data_frame)`, and a call to the `tidy()` function in the **broom** package to view the results in the form of a data frame. In the case of the Kentville/Greenwood climate data, the two tests look like this:
 
 ```{r}
-aov(meantemp ~ year, data = climate_data) %>% tidy()
+aov(meantemp ~ year, data = difference_test_data) %>% tidy()
 ```
 
 ```{r}
-aov(meantemp ~ month, data = climate_data) %>% tidy()
+aov(meantemp ~ month, data = difference_test_data) %>% tidy()
 ```
 
 Generally, the only column we care about in the output is the `p.value`, which is the probability that none of the groups of values are significantly different than any others. In the case of the Kentville/Greenwood climate data, there is a significant difference in temperature among months (*p*<0.001), but no significant different in temperature among years (*p*=0.83).
