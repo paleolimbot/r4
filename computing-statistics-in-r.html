@@ -25,7 +25,7 @@
 <meta name="author" content="The R Programming Group at the CWRS">
 
 
-<meta name="date" content="2017-09-01">
+<meta name="date" content="2017-09-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -155,25 +155,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="6" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html"><i class="fa fa-check"></i><b>6</b> Computing statistics in R</a><ul>
 <li class="chapter" data-level="6.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#prerequisites-5"><i class="fa fa-check"></i><b>6.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="6.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#correlation-and-linear-regression"><i class="fa fa-check"></i><b>6.2</b> Correlation and Linear Regression</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#test-data"><i class="fa fa-check"></i><b>6.2.1</b> Test Data</a></li>
-<li class="chapter" data-level="6.2.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test"><i class="fa fa-check"></i><b>6.2.2</b> Graphical Test</a></li>
-<li class="chapter" data-level="6.2.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-pearson-product-moment-correlation-coefficient-r"><i class="fa fa-check"></i><b>6.2.3</b> The Pearson product-moment correlation coefficient (<em>r</em>)</a></li>
-<li class="chapter" data-level="6.2.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#spearman-rho-or-rs"><i class="fa fa-check"></i><b>6.2.4</b> Spearman <span class="math inline">\(\rho\)</span> or <em>r<sub>s</sub></em></a></li>
-<li class="chapter" data-level="6.2.5" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#linear-regression"><i class="fa fa-check"></i><b>6.2.5</b> Linear Regression</a></li>
+<li class="chapter" data-level="6.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#terminology"><i class="fa fa-check"></i><b>6.2</b> Terminology</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#grouping-variables"><i class="fa fa-check"></i><b>6.2.1</b> Grouping Variables</a></li>
+<li class="chapter" data-level="6.2.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#paired-values"><i class="fa fa-check"></i><b>6.2.2</b> Paired Values</a></li>
+<li class="chapter" data-level="6.2.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#independent-observations"><i class="fa fa-check"></i><b>6.2.3</b> Independent Observations</a></li>
+<li class="chapter" data-level="6.2.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test"><i class="fa fa-check"></i><b>6.2.4</b> Graphical Test</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#significant-differences-with-two-groups"><i class="fa fa-check"></i><b>6.3</b> Significant differences with two groups</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-t-test"><i class="fa fa-check"></i><b>6.3.1</b> The t-test</a></li>
+<li class="chapter" data-level="6.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#testing-for-normality"><i class="fa fa-check"></i><b>6.3</b> Testing for Normality</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#test-data"><i class="fa fa-check"></i><b>6.3.1</b> Test Data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test-1"><i class="fa fa-check"></i><b>6.3.2</b> Graphical Test</a></li>
+<li class="chapter" data-level="6.3.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#statistical-test"><i class="fa fa-check"></i><b>6.3.3</b> Statistical Test</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#statistical-test-3"><i class="fa fa-check"></i><b>6.4</b> Statistical Test</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#paired-t-test"><i class="fa fa-check"></i><b>6.4.1</b> Paired t-test</a></li>
-<li class="chapter" data-level="6.4.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#wilcox-rank-sum-test"><i class="fa fa-check"></i><b>6.4.2</b> Wilcox Rank Sum Test</a></li>
-<li class="chapter" data-level="6.4.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#mann-whitney-test"><i class="fa fa-check"></i><b>6.4.3</b> Mann-Whitney Test</a></li>
+<li class="chapter" data-level="6.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#correlation-and-linear-regression"><i class="fa fa-check"></i><b>6.4</b> Correlation and Linear Regression</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#test-data-1"><i class="fa fa-check"></i><b>6.4.1</b> Test Data</a></li>
+<li class="chapter" data-level="6.4.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test-2"><i class="fa fa-check"></i><b>6.4.2</b> Graphical Test</a></li>
+<li class="chapter" data-level="6.4.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-pearson-product-moment-correlation-coefficient-r"><i class="fa fa-check"></i><b>6.4.3</b> The Pearson product-moment correlation coefficient (<em>r</em>)</a></li>
+<li class="chapter" data-level="6.4.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#spearman-rho-or-rs"><i class="fa fa-check"></i><b>6.4.4</b> Spearman <span class="math inline">\(\rho\)</span> or <em>r<sub>s</sub></em></a></li>
+<li class="chapter" data-level="6.4.5" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#linear-regression"><i class="fa fa-check"></i><b>6.4.5</b> Linear Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#significant-differences-with-more-than-two-groups"><i class="fa fa-check"></i><b>6.5</b> Significant differences with more than two groups</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-anova-test"><i class="fa fa-check"></i><b>6.5.1</b> The ANOVA test</a></li>
-<li class="chapter" data-level="6.5.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test-2"><i class="fa fa-check"></i><b>6.5.2</b> Graphical Test</a></li>
-<li class="chapter" data-level="6.5.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#krustal-wallis-rank-sum-test"><i class="fa fa-check"></i><b>6.5.3</b> Krustal-Wallis Rank Sum Test</a></li>
+<li class="chapter" data-level="6.5" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#significant-differences"><i class="fa fa-check"></i><b>6.5</b> Significant differences</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#test-data-2"><i class="fa fa-check"></i><b>6.5.1</b> Test Data</a></li>
+<li class="chapter" data-level="6.5.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test-3"><i class="fa fa-check"></i><b>6.5.2</b> Graphical Test</a></li>
+<li class="chapter" data-level="6.5.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-t-test"><i class="fa fa-check"></i><b>6.5.3</b> The t-test</a></li>
+<li class="chapter" data-level="6.5.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#paired-t-test"><i class="fa fa-check"></i><b>6.5.4</b> Paired t-test</a></li>
+<li class="chapter" data-level="6.5.5" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#wilcox-rank-summann-whitney-test"><i class="fa fa-check"></i><b>6.5.5</b> Wilcox Rank Sum/Mann-Whitney Test</a></li>
+<li class="chapter" data-level="6.5.6" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-anova-test"><i class="fa fa-check"></i><b>6.5.6</b> The ANOVA test</a></li>
+<li class="chapter" data-level="6.5.7" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#krustal-wallis-rank-sum-test"><i class="fa fa-check"></i><b>6.5.7</b> Krustal-Wallis Rank Sum Test</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#summary-5"><i class="fa fa-check"></i><b>6.6</b> Summary</a></li>
 </ul></li>
@@ -212,13 +219,130 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">climate_data &lt;-<span class="st"> </span><span class="kw">getClimateData</span>(<span class="kw">c</span>(<span class="dv">27141</span>, <span class="dv">6354</span>), <span class="dt">year =</span> <span class="dv">2000</span>:<span class="dv">2003</span>,
                                <span class="dt">nicenames =</span> <span class="ot">TRUE</span>) %&gt;%
 <span class="st">  </span><span class="kw">left_join</span>(ecclimatelocs %&gt;%<span class="st"> </span><span class="kw">select</span>(<span class="dt">station_name =</span> Name, <span class="dt">stationid =</span> <span class="st">`</span><span class="dt">Station ID</span><span class="st">`</span>),
-            <span class="dt">by =</span> <span class="st">&quot;stationid&quot;</span>)</code></pre></div>
+            <span class="dt">by =</span> <span class="st">&quot;stationid&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(station_name, year, month, <span class="kw">everything</span>()) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(-<span class="kw">ends_with</span>(<span class="st">&quot;flag&quot;</span>), -parseddate, -datetime, -stationid)</code></pre></div>
+</div>
+<div id="terminology" class="section level2">
+<h2><span class="header-section-number">6.2</span> Terminology</h2>
+<div id="grouping-variables" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Grouping Variables</h3>
+<p>Many statistical test functions in R use a <strong>formula</strong> to specify a value column and a grouping column for a test using a data frame as input. This is usually a column that contains data labels like “group1”, “group1”, “group1”, “group2”, “group2”, etc., whose values divide observations into groups for which we want to test significance. In our sample data frame <code>climate_data</code>, these variables are <code>station_name</code>, <code>year</code>, <code>month</code>. The other variables represent measured values, whereas the grouping variables give context to each row. The <strong>formula</strong> used as input to statistical test functions is generally in the form <code>measure_var ~ grouping_var</code>, where <code>measure_var</code> and <code>grouping_var</code> are columns in a data frame.</p>
+<p>Sometimes it is necessary to use column names as grouping variables. In the case of the <code>climate_data</code> data frame, one might want to test whether the mean monthly temperature (<code>meantemp</code>) is significantly different than the extreme maximum monthly temperature (<code>extrmaxtemp</code>). Because these values are stored in two columns, there is no grouping variable that can separate these two sets of observations. This operation is possible using the <code>gather()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">climate_data_mean_max_temp &lt;-<span class="st"> </span>climate_data %&gt;%
+<span class="st">  </span><span class="kw">select</span>(station_name, year, month, meantemp, extrmaxtemp) %&gt;%
+<span class="st">  </span><span class="kw">gather</span>(meantemp, extrmaxtemp, <span class="dt">key =</span> <span class="st">&quot;temperature_type&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;temp&quot;</span>)
+climate_data_mean_max_temp</code></pre></div>
+<pre><code>## # A tibble: 192 x 5
+##        station_name  year month temperature_type  temp
+##               &lt;chr&gt; &lt;int&gt; &lt;int&gt;            &lt;chr&gt; &lt;dbl&gt;
+##  1 KENTVILLE CDA CS  2000     1         meantemp  -4.2
+##  2 KENTVILLE CDA CS  2000     2         meantemp  -2.6
+##  3 KENTVILLE CDA CS  2000     3         meantemp   1.6
+##  4 KENTVILLE CDA CS  2000     4         meantemp   6.4
+##  5 KENTVILLE CDA CS  2000     5         meantemp  10.0
+##  6 KENTVILLE CDA CS  2000     6         meantemp  16.4
+##  7 KENTVILLE CDA CS  2000     7         meantemp  18.8
+##  8 KENTVILLE CDA CS  2000     8         meantemp  19.2
+##  9 KENTVILLE CDA CS  2000     9         meantemp  14.6
+## 10 KENTVILLE CDA CS  2000    10         meantemp   9.9
+## # ... with 182 more rows</code></pre>
+<p>In the resulting data frame, the <code>temperature_type</code> column will contain the values “meantemp” and “extrmaxtemp”, which can be used as a grouping variable in a statistical test function. When using <code>gather()</code>, it is important to select only the relevant variables using <code>select()</code> first.</p>
+</div>
+<div id="paired-values" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Paired Values</h3>
+<p>Some statistical tests are only possible or are preferable with <strong>paired values</strong>, or values that are stored in two columns in a data frame (i.e., part of the same observation). The example above of testing whether the mean monthly temperature (<code>meantemp</code>) is significantly different than the extreme maximum monthly temperature (<code>extrmaxtemp</code>) could also be done pairwise, in which case the original data is already in the correct format for the test. Sometimes the data is provided in a form where there is a grouping variable, and measured values are in the same column (this is the result of the above example where we converted <code>meantemp</code> and <code>extrmaxtemp</code> into a grouping variable and a measured variable). We can transform a grouping variable and a measured variable into paired observations using the <code>spread()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">climate_data_mean_max_temp %&gt;%
+<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> temperature_type, <span class="dt">value =</span> temp)</code></pre></div>
+<pre><code>## # A tibble: 96 x 5
+##    station_name  year month extrmaxtemp meantemp
+##  *        &lt;chr&gt; &lt;int&gt; &lt;int&gt;       &lt;dbl&gt;    &lt;dbl&gt;
+##  1  GREENWOOD A  2000     1        18.0     -4.4
+##  2  GREENWOOD A  2000     2        17.8     -3.1
+##  3  GREENWOOD A  2000     3        17.9      2.0
+##  4  GREENWOOD A  2000     4        20.0      6.4
+##  5  GREENWOOD A  2000     5        21.3     10.4
+##  6  GREENWOOD A  2000     6        31.8     16.2
+##  7  GREENWOOD A  2000     7        29.4     19.0
+##  8  GREENWOOD A  2000     8        29.0     18.8
+##  9  GREENWOOD A  2000     9        31.0     14.1
+## 10  GREENWOOD A  2000    10        21.9      9.2
+## # ... with 86 more rows</code></pre>
+<p>In the resulting data frame, the values that were in <code>temperature_type</code> are now column names, and the qualifying variables <code>station_name</code>, <code>year</code>, and <code>month</code> are used to identify unique observations that are paired with one another.</p>
+</div>
+<div id="independent-observations" class="section level3">
+<h3><span class="header-section-number">6.2.3</span> Independent Observations</h3>
+<p>…don’t have a good explanation for this.</p>
+</div>
+<div id="graphical-test" class="section level3">
+<h3><span class="header-section-number">6.2.4</span> Graphical Test</h3>
+<p>autocorrelation?</p>
+</div>
+</div>
+<div id="testing-for-normality" class="section level2">
+<h2><span class="header-section-number">6.3</span> Testing for Normality</h2>
+<p>Some tests (notably the t-test, the ANOVA test, and the Pearson coefficient) require that the input values are normally distributed. For small amounts of replicate samples, this is generally a good assumption, however larger samples whose distribution cannot be assumed require a test for normality. One such test is the Shapiro-Wilk test, which is described below.</p>
+<div id="test-data" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Test Data</h3>
+<p>The test for normality requires a data frame with one column that contains the values that should be normally distributed. In our example, we will test whether or not mean monthly temperature is normally distributed, and whether or not total montly precipitation is normally distributed. It is also good practice to keep qualifying variables that give context to each observation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">normal_test_data &lt;-<span class="st"> </span>climate_data %&gt;%
+<span class="st">  </span><span class="kw">select</span>(station_name, year, month, meantemp, totalprecip)
+normal_test_data</code></pre></div>
+<pre><code>## # A tibble: 96 x 5
+##        station_name  year month meantemp totalprecip
+##               &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+##  1 KENTVILLE CDA CS  2000     1     -4.2       182.2
+##  2 KENTVILLE CDA CS  2000     2     -2.6        10.7
+##  3 KENTVILLE CDA CS  2000     3      1.6       116.4
+##  4 KENTVILLE CDA CS  2000     4      6.4        89.1
+##  5 KENTVILLE CDA CS  2000     5     10.0        58.0
+##  6 KENTVILLE CDA CS  2000     6     16.4        46.0
+##  7 KENTVILLE CDA CS  2000     7     18.8        72.4
+##  8 KENTVILLE CDA CS  2000     8     19.2        36.6
+##  9 KENTVILLE CDA CS  2000     9     14.6        58.4
+## 10 KENTVILLE CDA CS  2000    10      9.9       197.6
+## # ... with 86 more rows</code></pre>
+</div>
+<div id="graphical-test-1" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Graphical Test</h3>
+<p>The graphical test for a normality test is a histogram.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(normal_test_data, <span class="kw">aes</span>(<span class="dt">x =</span> meantemp)) +
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">30</span>)</code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="r4cwrs_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<p>A historgram of a normally distributed variable should be symmetrical about its mean, like the histogram shown below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">300</span>)
+normal_random_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">normal_random_data =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>))
+
+<span class="kw">ggplot</span>(normal_random_data, <span class="kw">aes</span>(<span class="dt">x =</span> normal_random_data)) +
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">30</span>)</code></pre></div>
+<p><img src="r4cwrs_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p>A histogram of a normally distributed variable generally isn’t a perfect bell curve (especially when there are few data points), but should show some evidence of symmetry about the mean value.</p>
+</div>
+<div id="statistical-test" class="section level3">
+<h3><span class="header-section-number">6.3.3</span> Statistical Test</h3>
+<p>Testing for normality in R involves a call to <code>shapiro.test()</code>, followed by a call to <code>tidy()</code> in the <strong>broom</strong> package to view the results in the form of a data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">shapiro.test</span>(normal_test_data$meantemp) %&gt;%
+<span class="st">  </span><span class="kw">tidy</span>()</code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##   statistic      p.value                      method
+##       &lt;dbl&gt;        &lt;dbl&gt;                      &lt;fctr&gt;
+## 1 0.9358426 0.0001631647 Shapiro-Wilk normality test</code></pre>
+<p>A low <code>p.value</code> indicates that there is evidence to reject the notion that the input data are sampled from a normally distributed population. You will have to pick a level of significance (<span class="math inline">\(\alpha\)</span>) as a threshold, usually 0.05 or 0.01, under which the p-value will indicate the sample was drawn from a non-normal distribution. In our example, the mean montly temperature was shown to be non-normally distributed (<em>p</em>&lt;0.001).</p>
+<p>In the case of our normal random data, the p-value is quite high (<em>p</em>=0.72), suggesting that the data were sampled from a normally distributed population.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">shapiro.test</span>(normal_random_data$normal_random_data) %&gt;%
+<span class="st">  </span><span class="kw">tidy</span>()</code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##   statistic   p.value                      method
+##       &lt;dbl&gt;     &lt;dbl&gt;                      &lt;fctr&gt;
+## 1 0.9907158 0.7223313 Shapiro-Wilk normality test</code></pre>
+</div>
 </div>
 <div id="correlation-and-linear-regression" class="section level2">
-<h2><span class="header-section-number">6.2</span> Correlation and Linear Regression</h2>
+<h2><span class="header-section-number">6.4</span> Correlation and Linear Regression</h2>
 <p>Tests for correlation of two variables test whether or not a relationship exists between the two variables (i.e., can any of the variance of one variable be explained by variance in the other). This is often done to test association between two parameters when these measurements are paired. In our example, we will test the corellation between mean monthly temperature and total monthly precipitation, to ascertain whether or not a statistically significant relationship exists between the two.</p>
-<div id="test-data" class="section level3">
-<h3><span class="header-section-number">6.2.1</span> Test Data</h3>
+<div id="test-data-1" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Test Data</h3>
 <p>Correlation tests all require a data frame with one column for the x variable and one column for the y variable. It is often useful to keep other qualifying variables that give context to each observation, but are not required by the test. In our case, the x variable will be <code>meantemp</code> and the y variable will be <code>totalprecip</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">correlation_test_data &lt;-<span class="st"> </span>climate_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(station_name, year, month, meantemp, totalprecip)
@@ -238,26 +362,26 @@ correlation_test_data</code></pre></div>
 ## 10 KENTVILLE CDA CS  2000    10      9.9       197.6
 ## # ... with 86 more rows</code></pre>
 </div>
-<div id="graphical-test" class="section level3">
-<h3><span class="header-section-number">6.2.2</span> Graphical Test</h3>
+<div id="graphical-test-2" class="section level3">
+<h3><span class="header-section-number">6.4.2</span> Graphical Test</h3>
 <p>A graphical test of the correlation of two variables is a biplot with one variable on the x-axis, and one variable on the y-axis. The variable on the x-axis should be the indepenent variable for the purposes of the test. This will look something like <code>ggplot(my_data_frame, x = independent_var, y = dependent_var)</code> followed by <code>geom_point()</code>. You can add a linear regression to the plot using <code>stat_smooth(method = lm)</code>. This will add the best-fit line whose slope and intercept we will calculate in the next section.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(correlation_test_data, <span class="kw">aes</span>(<span class="dt">x =</span> meantemp, <span class="dt">y =</span> totalprecip)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> lm)</code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<p><img src="r4cwrs_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
 <p>Based on inspection of the biplot, you should be able to have a hunch as to whether or not a linear relationship exists between the two variables. In our case, it looks like there is a weak negative correlation between mean temperature and total preciptiation (i.e., the higher the mean temperature for a given month, the lower the total precipitation for the same month).</p>
 </div>
 <div id="the-pearson-product-moment-correlation-coefficient-r" class="section level3">
-<h3><span class="header-section-number">6.2.3</span> The Pearson product-moment correlation coefficient (<em>r</em>)</h3>
+<h3><span class="header-section-number">6.4.3</span> The Pearson product-moment correlation coefficient (<em>r</em>)</h3>
 <p>The Pearson product-moment correlation coefficient (usually known as the <em>r</em> value) is a test of how well a line of best fit is able to model the data (generally a standard least-squares linear regression). The coefficient ranges from -1 (perfect negative linear relationship) to +1 (perfect positive linear relationship). Generally the square of this value is reported (r<sup>2</sup>), and can be interpreted as “xx % of the variance in <code>y_variable</code> can be explained by the variance in <code>x_variable</code>”. There is no statistical way to test how good the linear relationship is, but it is possible to test that the coefficient is not equal to zero (i.e., it is possible to reject the notion that there <code>x_variable</code> and <code>y_variable</code> have no linear relationship).</p>
 <div id="assumptions" class="section level4">
-<h4><span class="header-section-number">6.2.3.1</span> Assumptions</h4>
+<h4><span class="header-section-number">6.4.3.1</span> Assumptions</h4>
 <p>The Pearson product-moment correlation coefficient assumes that <code>x_variable</code> and <code>y_variable</code> are normally distributed.</p>
 </div>
-<div id="statistical-test" class="section level4">
-<h4><span class="header-section-number">6.2.3.2</span> Statistical Test</h4>
+<div id="statistical-test-1" class="section level4">
+<h4><span class="header-section-number">6.4.3.2</span> Statistical Test</h4>
 <p>Calculating the <em>r</em> value and associated p-value involves a call to <code>cor.test()</code> with <code>method = &quot;pearson&quot;</code>, followed by a call to <code>tidy()</code> in the <strong>broom</strong> package to get the test results in the form of a data frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor.test</span>(~totalprecip +<span class="st"> </span>meantemp, <span class="dt">data =</span> correlation_test_data, 
          <span class="dt">method =</span> <span class="st">&quot;pearson&quot;</span>) %&gt;%
@@ -271,14 +395,14 @@ correlation_test_data</code></pre></div>
 </div>
 </div>
 <div id="spearman-rho-or-rs" class="section level3">
-<h3><span class="header-section-number">6.2.4</span> Spearman <span class="math inline">\(\rho\)</span> or <em>r<sub>s</sub></em></h3>
+<h3><span class="header-section-number">6.4.4</span> Spearman <span class="math inline">\(\rho\)</span> or <em>r<sub>s</sub></em></h3>
 <p>The Spearman correlation coefficient (abbreviated <span class="math inline">\(\rho\)</span> or <em>r<sub>s</sub></em>) is a test of a one-to-one relationship between <code>x_variable</code> and <code>y_variable</code>, not necessarily linear. The test uses ranked values for <code>x_variable</code> and <code>y_variable</code>, so outliers are less of an issue than they are with the Pearson coefficient. Similar to the Perason coefficient, the <em>r<sub>s</sub></em> value varies from -1 (a perfect one-to-one negative relationship) to 1 (a perfect one-to-one positive relationship). Similar to the Pearson coefficient, it is only possible to test that the value is not equal to zero (i.e., i.e., it is possible to reject the notion that there <code>x_variable</code> and <code>y_variable</code> have no one-to-one relationship).</p>
 <div id="assumptions-1" class="section level4">
-<h4><span class="header-section-number">6.2.4.1</span> Assumptions</h4>
+<h4><span class="header-section-number">6.4.4.1</span> Assumptions</h4>
 <p>The Spearman correlation coefficient does not make any assumptions about the distribution of <code>x_variable</code> or <code>y_variable</code>.</p>
 </div>
-<div id="statistical-test-1" class="section level4">
-<h4><span class="header-section-number">6.2.4.2</span> Statistical Test</h4>
+<div id="statistical-test-2" class="section level4">
+<h4><span class="header-section-number">6.4.4.2</span> Statistical Test</h4>
 <p>Calculating the <em>r<sub>s</sub></em> value and associated p-value involves a call to <code>cor.test()</code> with <code>method = &quot;spearman&quot;</code>, followed by a call to <code>tidy()</code> in the <strong>broom</strong> package to get the test results in the form of a data frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor.test</span>(~totalprecip +<span class="st"> </span>meantemp, <span class="dt">data =</span> correlation_test_data, 
          <span class="dt">method =</span> <span class="st">&quot;spearman&quot;</span>) %&gt;%
@@ -294,14 +418,14 @@ correlation_test_data</code></pre></div>
 </div>
 </div>
 <div id="linear-regression" class="section level3">
-<h3><span class="header-section-number">6.2.5</span> Linear Regression</h3>
+<h3><span class="header-section-number">6.4.5</span> Linear Regression</h3>
 <p>Whereas a Pearson coefficient is meant to assess the quality of a linear relationship, linear regression is meant to determine the slope and intercept of that relationship in the form <span class="math inline">\(y = mx + b\)</span>, where <span class="math inline">\(y\)</span> is <code>y_variable</code>, and x is <code>x_variable</code>. By obtaining <span class="math inline">\(m\)</span> and <span class="math inline">\(b\)</span>, we can use <code>x_variable</code> to calculate <code>y_variable</code> for any value of <code>x_variable</code>.</p>
 <div id="assumptions-2" class="section level4">
-<h4><span class="header-section-number">6.2.5.1</span> Assumptions</h4>
+<h4><span class="header-section-number">6.4.5.1</span> Assumptions</h4>
 <p>The standard linear regression (a least-squares regression) works best if both <code>x_variable</code> and <code>y_variable</code> are symmetrically distributed.</p>
 </div>
-<div id="statistical-test-2" class="section level4">
-<h4><span class="header-section-number">6.2.5.2</span> Statistical Test</h4>
+<div id="statistical-test-3" class="section level4">
+<h4><span class="header-section-number">6.4.5.2</span> Statistical Test</h4>
 <p>Calculating the coefficients <span class="math inline">\(m\)</span> and <span class="math inline">\(b\)</span> for a linear regression involves a call to <code>lm()</code> with a formula <code>y_variable ~ x_variable</code> (note this is slightly different than for correlation testing) and <code>data = my_data_frame</code>. For our example, the call would look like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(totalprecip ~<span class="st"> </span>meantemp, <span class="dt">data =</span> correlation_test_data) %&gt;%
 <span class="st">  </span><span class="kw">tidy</span>()</code></pre></div>
@@ -325,36 +449,61 @@ correlation_test_data</code></pre></div>
 </div>
 </div>
 </div>
-<div id="significant-differences-with-two-groups" class="section level2">
-<h2><span class="header-section-number">6.3</span> Significant differences with two groups</h2>
-<div id="the-t-test" class="section level3">
-<h3><span class="header-section-number">6.3.1</span> The t-test</h3>
-<p>The ANOVA test tests whether or not there is a significant difference between a value exactly two groups of observations (an ANOVA test can be used when there are more than two groups). We will be using this test to ascertain whether or not there is a significant difference in temperature when these observations are grouped by station (note that there are exactly two stations, Kentville and Greenwood).</p>
-<div id="assumptions-3" class="section level4">
-<h4><span class="header-section-number">6.3.1.1</span> Assumptions</h4>
-<p>The t-test assumes that the two samples of data values are normally distributed and independent.</p>
+<div id="significant-differences" class="section level2">
+<h2><span class="header-section-number">6.5</span> Significant differences</h2>
+<p>Tests for significant differences tests whether or not there is a significant difference among various groups of observations. Which test to use depends on whether or not the data are normally distributed, and how many groups exist. For our example, we will be looking at the diferences in mean temperature (<code>meantemp</code>) as grouped by several grouping variables (<code>station_name</code>, <code>year</code>, and <code>month</code>).</p>
+<div id="test-data-2" class="section level3">
+<h3><span class="header-section-number">6.5.1</span> Test Data</h3>
+<p>Tests for significant differences require a data frame with a column containing the values to test, and a column containing the variable to group by (usually contains strings like “group1”, “group2”, “group3”, etc.). It is often useful to keep other qualifying variables that give context to each observation, but are not required by the test. In our case, the column in <code>climate_data</code> that contains the values we are testing is <code>meantemp</code>, and the columns that contain the groups are <code>station_name</code>, <code>year</code>, and <code>month</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">difference_test_data &lt;-<span class="st"> </span>climate_data %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(station_name, year, month, meantemp)
+difference_test_data</code></pre></div>
+<pre><code>## # A tibble: 96 x 4
+##        station_name  year month meantemp
+##               &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;
+##  1 KENTVILLE CDA CS  2000     1     -4.2
+##  2 KENTVILLE CDA CS  2000     2     -2.6
+##  3 KENTVILLE CDA CS  2000     3      1.6
+##  4 KENTVILLE CDA CS  2000     4      6.4
+##  5 KENTVILLE CDA CS  2000     5     10.0
+##  6 KENTVILLE CDA CS  2000     6     16.4
+##  7 KENTVILLE CDA CS  2000     7     18.8
+##  8 KENTVILLE CDA CS  2000     8     19.2
+##  9 KENTVILLE CDA CS  2000     9     14.6
+## 10 KENTVILLE CDA CS  2000    10      9.9
+## # ... with 86 more rows</code></pre>
 </div>
-<div id="test-data-1" class="section level4">
-<h4><span class="header-section-number">6.3.1.2</span> Test Data</h4>
-<p>A t-test requires a data frame with a column containing the values to test, and a column containing the variable to group by (usually contains strings like “group1”, “group2”, “group3”, etc.). It is often useful to keep other qualifying variables that give context to each observation, but are not required by the test. In our case, the column in <code>climate_data</code> that contains the values we are testing is <code>meantemp</code>, and the column that contains the groups is <code>station_name</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t_test_data &lt;-<span class="st"> </span>climate_data %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(station_name, year, month, meantemp)</code></pre></div>
-</div>
-<div id="graphical-test-1" class="section level4">
-<h4><span class="header-section-number">6.3.1.3</span> Graphical Test</h4>
-<p>The graphic for an ANOVA test is a series of boxplots, with exactly two variables on the x axis. This is generated using something like <code>ggplot(my_data_frame, aes(x = group_column, y = value_column))</code> followed by <code>geom_boxplot()</code>. For the test we are about to do, the graphic looks like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(t_test_data, <span class="kw">aes</span>(<span class="dt">x =</span> station_name, <span class="dt">y =</span> meantemp)) +
+<div id="graphical-test-3" class="section level3">
+<h3><span class="header-section-number">6.5.2</span> Graphical Test</h3>
+<p>The graphic for significant difference tests is a plot with the grouping variable on the x-axis, and the value variable on the y-axis. This is generated using something like <code>ggplot(my_data_frame, aes(x = group_column, y = value_column))</code> followed by <code>geom_point()</code> and/or <code>geom_boxplot()</code>. If the grouping variable is <code>station_name</code>, such a plot might look like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(difference_test_data, <span class="kw">aes</span>(<span class="dt">x =</span> station_name, <span class="dt">y =</span> meantemp)) +
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
-<p>Based on the graphic, you should be able to have a hunch as to whether or not one boxplot is significantly different than the other boxplot (when grouped by station, it looks like there isn’t much difference in temperature). This is important, because it will make interpreting your results more intuitive and allows you to check for errors.</p>
+<p><img src="r4cwrs_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p>For smaller numbers of observations, it may make sense to plot the values of the observations themselves using <code>geom_point()</code>. In the next example, the grouping variable is <code>month</code> (note that we have to use <code>factor(month)</code> in <code>ggplot</code>, because we are using a continuous variable as a grouping variable).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(difference_test_data, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> meantemp)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="r4cwrs_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<p>When there are a small number of observations in each group, it also may make sense to compute summary statistics and plot those instead of a boxplot or the observations themselves. This is done using <code>stat_summary()</code>, which by default displays a point with error bars plus or minus the standard error (the standard deviation divided by the square root of <em>n</em>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(difference_test_data, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> meantemp)) +
+<span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">size =</span> <span class="fl">0.25</span>)</code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_summary).</code></pre>
+<pre><code>## No summary function supplied, defaulting to `mean_se()</code></pre>
+<p><img src="r4cwrs_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p>Based on the graphic, you should be able to have a hunch as to whether or not one group of observations is significantly different than another group of observations (when grouped by station, it looks like there isn’t much difference in temperature, but when grouped by month, there is a clear difference). This is important, because it will make interpreting your results more intuitive and allows you to check for errors.</p>
 </div>
+<div id="the-t-test" class="section level3">
+<h3><span class="header-section-number">6.5.3</span> The t-test</h3>
+<p>The t-test tests whether or not there is a significant difference between a value exactly two groups of observations (an ANOVA test can be used when there are more than two groups). We will be using this test to ascertain whether or not there is a significant difference in temperature when these observations are grouped by station (note that there are exactly two stations, Kentville and Greenwood).</p>
+<div id="assumptions-3" class="section level4">
+<h4><span class="header-section-number">6.5.3.1</span> Assumptions</h4>
+<p>The t-test assumes that the two samples of data values are normally distributed and independent.</p>
 </div>
-</div>
-<div id="statistical-test-3" class="section level2">
-<h2><span class="header-section-number">6.4</span> Statistical Test</h2>
+<div id="statistical-test-4" class="section level4">
+<h4><span class="header-section-number">6.5.3.2</span> Statistical Test</h4>
 <p>Performing the t-test uses a call to the <code>t.test()</code> function in the form <code>t.test(value_column ~ group_column, data = my_data_frame)</code>, and a call to the <code>tidy()</code> function in the <strong>broom</strong> package to view the results in the form of a data frame. In the case of the Kentville/Greenwood climate data, the two tests look like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(meantemp ~<span class="st"> </span>station_name, <span class="dt">data =</span> t_test_data) %&gt;%<span class="st"> </span><span class="kw">tidy</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(meantemp ~<span class="st"> </span>station_name, <span class="dt">data =</span> difference_test_data) %&gt;%<span class="st"> </span><span class="kw">tidy</span>()</code></pre></div>
 <pre><code>## # A tibble: 1 x 10
 ##     estimate estimate1 estimate2  statistic   p.value parameter  conf.low
 ##        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
@@ -362,57 +511,33 @@ correlation_test_data</code></pre></div>
 ## # ... with 3 more variables: conf.high &lt;dbl&gt;, method &lt;fctr&gt;,
 ## #   alternative &lt;fctr&gt;</code></pre>
 <p>Here the <code>estimate</code> column is the estimated difference between the means of the two groups, and the <code>p.value</code> column is the p-value, which represents the probability that there is no significant difference between the two groups (<em>p</em>=0.97).</p>
+</div>
+</div>
 <div id="paired-t-test" class="section level3">
-<h3><span class="header-section-number">6.4.1</span> Paired t-test</h3>
+<h3><span class="header-section-number">6.5.4</span> Paired t-test</h3>
 <p>Paired version of the t-test…</p>
 </div>
-<div id="wilcox-rank-sum-test" class="section level3">
-<h3><span class="header-section-number">6.4.2</span> Wilcox Rank Sum Test</h3>
+<div id="wilcox-rank-summann-whitney-test" class="section level3">
+<h3><span class="header-section-number">6.5.5</span> Wilcox Rank Sum/Mann-Whitney Test</h3>
 <p>The Wilcox Rank Sum Test is…</p>
 </div>
-<div id="mann-whitney-test" class="section level3">
-<h3><span class="header-section-number">6.4.3</span> Mann-Whitney Test</h3>
-<p>The Wilcox Rank Sum Test is…</p>
-</div>
-</div>
-<div id="significant-differences-with-more-than-two-groups" class="section level2">
-<h2><span class="header-section-number">6.5</span> Significant differences with more than two groups</h2>
 <div id="the-anova-test" class="section level3">
-<h3><span class="header-section-number">6.5.1</span> The ANOVA test</h3>
-<p>The ANOVA test tests whether or not there is a significant difference between a value using two or more groups of observations (an ANOVA test when there are only two groups is identical to a t-test). We will be using this test to ascertain whether or not there is a significant difference in temperature when these observations are grouped by (1) year and (2) month.</p>
+<h3><span class="header-section-number">6.5.6</span> The ANOVA test</h3>
+<p>The ANOVA test tests whether or not there is a significant difference between a value using two or more groups of observations (an ANOVA test when there are only two groups is identical to a t-test). We will be using this test to ascertain whether or not there is a significant difference in mean monthly temperature when these observations are grouped by (1) year and (2) month.</p>
 <div id="assumptions-4" class="section level4">
-<h4><span class="header-section-number">6.5.1.1</span> Assumptions</h4>
+<h4><span class="header-section-number">6.5.6.1</span> Assumptions</h4>
 <p>The ANOVA test assumes all samples of data values are normally distributed and independent.</p>
 </div>
-<div id="test-data-2" class="section level4">
-<h4><span class="header-section-number">6.5.1.2</span> Test Data</h4>
-<p>An ANOVA test requires a data frame with a column containing the values to test, and a column containing the variable to group by (usually contains strings like “group1”, “group2”, “group3”, etc.). It is often useful to keep other qualifying variables that give context to each observation, but are not required by the test. In our case, the column in <code>climate_data</code> that contains the values we are testing is <code>meantemp</code>, and the column that contains the groups is <code>year</code> for the first test, and <code>month</code> for the second.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anova_test_data &lt;-<span class="st"> </span>climate_data %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(station_name, year, month, meantemp)</code></pre></div>
-</div>
-</div>
-<div id="graphical-test-2" class="section level3">
-<h3><span class="header-section-number">6.5.2</span> Graphical Test</h3>
-<p>The graphic for an ANOVA test is a series of boxplots, with two or more variables on the x axis. This is generated using something like <code>ggplot(my_data_frame, aes(x = group_column, y = value_column))</code> followed by <code>geom_boxplot()</code>. For the two tests we are about to do, the graphics look like this (note that we are using <code>factor(year)</code> instead of just <code>year</code> because otherwise <code>ggplot</code> interprets the <code>year</code> variable as continuous, when we are using it to group data into discrete groups):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(anova_test_data, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(year), <span class="dt">y =</span> meantemp)) +
-<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(anova_test_data, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> meantemp)) +
-<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
-<p>Based on the graphic, you should be able to have a hunch as to whether or not each boxplot is significantly different than any other boxplot (when grouped by year, it looks like there isn’t much difference in temperature, but by month, there is definitely a difference). This is important, because it will make interpreting your results more intuitive and allows you to check for errors.</p>
-<div id="statistical-test-4" class="section level4">
-<h4><span class="header-section-number">6.5.2.1</span> Statistical Test</h4>
+<div id="statistical-test-5" class="section level4">
+<h4><span class="header-section-number">6.5.6.2</span> Statistical Test</h4>
 <p>Performing the ANOVA test uses a call to the <code>aov()</code> function in the form <code>aov(value_column ~ group_column, data = my_data_frame)</code>, and a call to the <code>tidy()</code> function in the <strong>broom</strong> package to view the results in the form of a data frame. In the case of the Kentville/Greenwood climate data, the two tests look like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aov</span>(meantemp ~<span class="st"> </span>year, <span class="dt">data =</span> climate_data) %&gt;%<span class="st"> </span><span class="kw">tidy</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aov</span>(meantemp ~<span class="st"> </span>year, <span class="dt">data =</span> difference_test_data) %&gt;%<span class="st"> </span><span class="kw">tidy</span>()</code></pre></div>
 <pre><code>## # A tibble: 2 x 6
 ##        term    df       sumsq    meansq  statistic   p.value
 ##       &lt;chr&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
 ## 1      year     1    3.482852  3.482852 0.04300005 0.8361786
 ## 2 Residuals    93 7532.671464 80.996467         NA        NA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aov</span>(meantemp ~<span class="st"> </span>month, <span class="dt">data =</span> climate_data) %&gt;%<span class="st"> </span><span class="kw">tidy</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aov</span>(meantemp ~<span class="st"> </span>month, <span class="dt">data =</span> difference_test_data) %&gt;%<span class="st"> </span><span class="kw">tidy</span>()</code></pre></div>
 <pre><code>## # A tibble: 2 x 6
 ##        term    df    sumsq     meansq statistic      p.value
 ##       &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
@@ -422,7 +547,7 @@ correlation_test_data</code></pre></div>
 </div>
 </div>
 <div id="krustal-wallis-rank-sum-test" class="section level3">
-<h3><span class="header-section-number">6.5.3</span> Krustal-Wallis Rank Sum Test</h3>
+<h3><span class="header-section-number">6.5.7</span> Krustal-Wallis Rank Sum Test</h3>
 <p>Krustal Wallis Test…</p>
 </div>
 </div>

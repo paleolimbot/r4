@@ -25,7 +25,7 @@
 <meta name="author" content="The R Programming Group at the CWRS">
 
 
-<meta name="date" content="2017-09-01">
+<meta name="date" content="2017-09-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -155,25 +155,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="6" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html"><i class="fa fa-check"></i><b>6</b> Computing statistics in R</a><ul>
 <li class="chapter" data-level="6.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#prerequisites-5"><i class="fa fa-check"></i><b>6.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="6.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#correlation-and-linear-regression"><i class="fa fa-check"></i><b>6.2</b> Correlation and Linear Regression</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#test-data"><i class="fa fa-check"></i><b>6.2.1</b> Test Data</a></li>
-<li class="chapter" data-level="6.2.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test"><i class="fa fa-check"></i><b>6.2.2</b> Graphical Test</a></li>
-<li class="chapter" data-level="6.2.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-pearson-product-moment-correlation-coefficient-r"><i class="fa fa-check"></i><b>6.2.3</b> The Pearson product-moment correlation coefficient (<em>r</em>)</a></li>
-<li class="chapter" data-level="6.2.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#spearman-rho-or-rs"><i class="fa fa-check"></i><b>6.2.4</b> Spearman <span class="math inline">\(\rho\)</span> or <em>r<sub>s</sub></em></a></li>
-<li class="chapter" data-level="6.2.5" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#linear-regression"><i class="fa fa-check"></i><b>6.2.5</b> Linear Regression</a></li>
+<li class="chapter" data-level="6.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#terminology"><i class="fa fa-check"></i><b>6.2</b> Terminology</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#grouping-variables"><i class="fa fa-check"></i><b>6.2.1</b> Grouping Variables</a></li>
+<li class="chapter" data-level="6.2.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#paired-values"><i class="fa fa-check"></i><b>6.2.2</b> Paired Values</a></li>
+<li class="chapter" data-level="6.2.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#independent-observations"><i class="fa fa-check"></i><b>6.2.3</b> Independent Observations</a></li>
+<li class="chapter" data-level="6.2.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test"><i class="fa fa-check"></i><b>6.2.4</b> Graphical Test</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#significant-differences-with-two-groups"><i class="fa fa-check"></i><b>6.3</b> Significant differences with two groups</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-t-test"><i class="fa fa-check"></i><b>6.3.1</b> The t-test</a></li>
+<li class="chapter" data-level="6.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#testing-for-normality"><i class="fa fa-check"></i><b>6.3</b> Testing for Normality</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#test-data"><i class="fa fa-check"></i><b>6.3.1</b> Test Data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test-1"><i class="fa fa-check"></i><b>6.3.2</b> Graphical Test</a></li>
+<li class="chapter" data-level="6.3.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#statistical-test"><i class="fa fa-check"></i><b>6.3.3</b> Statistical Test</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#statistical-test-3"><i class="fa fa-check"></i><b>6.4</b> Statistical Test</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#paired-t-test"><i class="fa fa-check"></i><b>6.4.1</b> Paired t-test</a></li>
-<li class="chapter" data-level="6.4.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#wilcox-rank-sum-test"><i class="fa fa-check"></i><b>6.4.2</b> Wilcox Rank Sum Test</a></li>
-<li class="chapter" data-level="6.4.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#mann-whitney-test"><i class="fa fa-check"></i><b>6.4.3</b> Mann-Whitney Test</a></li>
+<li class="chapter" data-level="6.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#correlation-and-linear-regression"><i class="fa fa-check"></i><b>6.4</b> Correlation and Linear Regression</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#test-data-1"><i class="fa fa-check"></i><b>6.4.1</b> Test Data</a></li>
+<li class="chapter" data-level="6.4.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test-2"><i class="fa fa-check"></i><b>6.4.2</b> Graphical Test</a></li>
+<li class="chapter" data-level="6.4.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-pearson-product-moment-correlation-coefficient-r"><i class="fa fa-check"></i><b>6.4.3</b> The Pearson product-moment correlation coefficient (<em>r</em>)</a></li>
+<li class="chapter" data-level="6.4.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#spearman-rho-or-rs"><i class="fa fa-check"></i><b>6.4.4</b> Spearman <span class="math inline">\(\rho\)</span> or <em>r<sub>s</sub></em></a></li>
+<li class="chapter" data-level="6.4.5" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#linear-regression"><i class="fa fa-check"></i><b>6.4.5</b> Linear Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#significant-differences-with-more-than-two-groups"><i class="fa fa-check"></i><b>6.5</b> Significant differences with more than two groups</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-anova-test"><i class="fa fa-check"></i><b>6.5.1</b> The ANOVA test</a></li>
-<li class="chapter" data-level="6.5.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test-2"><i class="fa fa-check"></i><b>6.5.2</b> Graphical Test</a></li>
-<li class="chapter" data-level="6.5.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#krustal-wallis-rank-sum-test"><i class="fa fa-check"></i><b>6.5.3</b> Krustal-Wallis Rank Sum Test</a></li>
+<li class="chapter" data-level="6.5" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#significant-differences"><i class="fa fa-check"></i><b>6.5</b> Significant differences</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#test-data-2"><i class="fa fa-check"></i><b>6.5.1</b> Test Data</a></li>
+<li class="chapter" data-level="6.5.2" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#graphical-test-3"><i class="fa fa-check"></i><b>6.5.2</b> Graphical Test</a></li>
+<li class="chapter" data-level="6.5.3" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-t-test"><i class="fa fa-check"></i><b>6.5.3</b> The t-test</a></li>
+<li class="chapter" data-level="6.5.4" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#paired-t-test"><i class="fa fa-check"></i><b>6.5.4</b> Paired t-test</a></li>
+<li class="chapter" data-level="6.5.5" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#wilcox-rank-summann-whitney-test"><i class="fa fa-check"></i><b>6.5.5</b> Wilcox Rank Sum/Mann-Whitney Test</a></li>
+<li class="chapter" data-level="6.5.6" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#the-anova-test"><i class="fa fa-check"></i><b>6.5.6</b> The ANOVA test</a></li>
+<li class="chapter" data-level="6.5.7" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#krustal-wallis-rank-sum-test"><i class="fa fa-check"></i><b>6.5.7</b> Krustal-Wallis Rank Sum Test</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="computing-statistics-in-r.html"><a href="computing-statistics-in-r.html#summary-5"><i class="fa fa-check"></i><b>6.6</b> Summary</a></li>
 </ul></li>
