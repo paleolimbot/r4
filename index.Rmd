@@ -14,11 +14,6 @@ github-repo: paleolimbot/r4cwrs
 description: "A collection of R lessons for CWRS projects"
 ---
 
-```{r setup, include=FALSE}
-# make sure climate data is generated
-source("data-raw/climate_data.R")
-```
-
 # Introduction {-}
 
 TODO: write this section 
