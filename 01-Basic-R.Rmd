@@ -206,13 +206,87 @@ This works because `myvector > 7` is, itself, a `TRUE`/`FALSE` vector with the s
 myvector > 7
 ```
 
+## Missing Values
+
+Missing values are represented in R using `NA`, or "not assigned". The fact that R handles missing values is one of the best reasons to use R for data analysis, because missing values are common in real data. `NA` values are propogated by R functions, meaning that if you take the `mean()` of a vector containing a missing value, it will give you `NA` as the average!
+
+```{r}
+mean(c(NA, 1, 2, 3))
+```
+
+This is rarely what you want, but is a good practice to explicitly handle missing values in your code, and R forces you to do this. To avoid getting an NA back, you can use `na.rm = TRUE`, an argument that is available in many R functions.
+
+```{r}
+mean(c(NA, 1, 2, 3), na.rm = TRUE)
+```
+
+## Data Frames
+
+The vast majority of data in R is kept in a **data frame**, which is a collection of **vectors** of the same length. You can think of a **data frame** as a table, with each column in the table being of the same type (numeric, character, TRUE/FALSE, etc.). In the following tutorials we will use a modern version of the data frame called a **tibble**, which behaves more predictably than base R's version. For now, we will use base R's function to create a **data frame**, `data.frame()`.
+
+```{r}
+my_data_frame <- data.frame(number = c(1, 2, 3), name = c("one", "two", "three"),
+                            is_one = c(TRUE, FALSE, FALSE))
+my_data_frame
+```
+
+The syntax for creating a **data frame** is `data.frame(column_name = value)`. The above data frame has three columns (`number`, a numeric column, `name`, a character column, and `is_one`, a logical TRUE/FALSE column). You can get these values as vectors again using the `$` operator, which allows you to extract a vector from a data frame.
+
+```{r}
+my_data_frame$number
+```
+
+```{r}
+my_data_frame$name
+```
+
+(Whoa! What does "Levels" mean!? Don't worry about this for now...it is one of the reasons we will be using the `tibble()` function to create data frames in the following tutorials.)
+
+```{r}
+my_data_frame$is_one
+```
+
+You can think of data frames a collection of vectors (**variables**) having the same number of elements. The number of elements has to be equal for all columns, meaning the *i*^th^ value of each vector forms an **observation**. Data in this form is very useful and is the subject of most of the following tutorials.
+
+## Loading Packages
+
+Basic R functionality is designed to provide basic functions to help with data analysis, but may add-ons are available and code you find online (including here, shortly) will often tell you to load a "package" using `library()`. This will be a call to the `library()` function in the form `library(packagename)`, where `packagename` is the name of the package which contains the functions you are interested in using (all of the subsequent tutorials will use `library(tidyverse)`, because the `tidyverse` package contains many useful functions that you will use on a regular basis. When you call `library(packagename)`, it will make these functions available to you. Occasionally you will see something like `packagename::function_name()`, which is a method to use a function without making *all* of the functions in a package. This is equivalent to typing `library(packagename)` then `function_name()` on the next line. You can install packages using `install.packages("packagename")` (note the quotes around `packagename`!).
+
+For example, let's install the `tidyverse` package now, since you'll be using it in the rest of this series.
+
+```{r, eval = FALSE}
+install.pacakges("tidyverse")
+```
+
+Then, load it using `library()`:
+
+```{r}
+library(tidyverse)
+```
+
+Finally, we are ready to call a function from the package. The `tidyverse` package actually installs and loads a family of useful packages for us, a list of which we can access using `tidyverse_packages()`. Try it!
+
+```{r}
+tidyverse_packages()
+```
+
 ## Using the Script Editor
 
 In reality, very little of the code you type will be directly in the prompt. Instead, you will use RStudio's script editor to run commands so that you can go back and edit them or run them from the beginning. To create a new R script, choose *File*, *New File*, and *R script* (you can also choose the little green "+" button at the top left of the console window). A blank R script should appear in a new tab.
 
 ![A new R script in the RStudio script editor.](01-Basic-R-Figs/r_editor.png)
 
-When you type a command in the editor and press enter, nothing happens! This is because the editor is meant to build script that contain multiple lines, unlike the console, which is meant to execute a single line at a time. To run a command you have typed in the script editor, press Ctrl+Enter (Command+Enter on a Mac). You can even select multiple lines, press Ctrl+Enter, and they will all run at once! You can also save the script and choose *Source* to run the whole thing.
+When you type a command in the editor and press enter, nothing happens! This is because the editor is meant to build script that contain multiple lines, unlike the console, which is meant to execute a single line at a time. To run a command you have typed in the script editor, press Ctrl+Enter (Command+Enter on a Mac). You can even select multiple lines, press Ctrl+Enter, and they will all run at once! You can also save the script and choose *Source* to run the whole thing. It is good practice to keep all of your code in a script somewhere. Typing it on a console repeatedly is hard work, and leads to errors! 
+
+## The Environment
+
+When you've assigned a bunch of variables, it can be tricky to keep track of which ones are where and contain what! Hopefully you have given them short but descriptive names, but if you happen to forget you can check the "Environment" tab in RStudio (in the upper right part of the window). If you'd like to start fresh you can clear the environment (use the little broom icon or go to Session/Clear Workspace), and if you *really* want to start fresh, you can restart R using Session/Restart R. This will clear your workspace and unload all the packages you loaded using `library()`. This is a good way to make sure all of your analysis has been encapsulated by the script, since you can Restart R and *Source* your script to replicate your work.
+
+![The RStudio Environment Tab](01-Basic-R-Figs/r_environment.png)
+
+By default, R will save your session when you quit and reload the variables you had previously assigned when you reopen it. This is dangerous, because even though you created an object, you may not be able to create it again! I highly reccomend using the script editor to encapsulate all of your code, and disable the automatic loading/saving of your workspace. You can do this in RStuio's Preferences (or "Global Options" on Windows/Linux) by setting "Save workspace on exit" to "Never", and unchecking "Restore .RData into workspace at startup".
+
+![The RStudio Global Options/Preferences window.](01-Basic-R-Figs/r_options.png)
 
 ## Excercises
 
