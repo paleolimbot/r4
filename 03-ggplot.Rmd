@@ -3,73 +3,98 @@
 
 Intro
 
+For more information, see the [data visualization](http://r4ds.had.co.nz/data-visualisation.html) chapter in [R for Data Science](http://r4ds.had.co.nz/).
+
 ## Prerequisites
 
-The prerequisites for this tutorial are `tidyverse` and `rclimateca`. If these packages aren't installed, you'll have to install them using `install.packages()`.
+The prerequisite for this tutorial is the `tidyverse` package. If this package isn't installed, you'll have to install it using `install.packages()`.
 
 ```{r, eval = FALSE}
 install.packages("tidyverse")
-install.packages("rclimateca")
 ```
 
 Load the packages when you're done! If there are errors, you may have not installed the above packages correctly!
 
 ```{r}
 library(tidyverse)
-library(rclimateca)
 ```
 
-Finally, you will need to obtain the sample data using the `getClimateData()` function in the **rclimateca** package. Copy/paste the statement below to load the sample data for this tutorial.
+Finally, you will need to obtain the example data. Copy/paste the statement below to load the sample data for this tutorial (you can also [download the dataset as a csv](data/valley_climate.csv)).
 
-Data: [canadia climate](data-raw/canada_climate.csv)
-
-```{r, results='hide'}
-# get data
-climate_data <- getClimateData(c(5051, 5345, 735L, 3912, 2925, 6206, 2205, 6454, 
-                                 1586, 1650, 6693, 1786, 6527),
-                               nicenames = TRUE) %>%
-  left_join(ecclimatelocs %>% select(station_name = Name, stationid = `Station ID`),
-            by = "stationid") %>%
-  select(station_name, year, month, date = parseddate, ends_with("temp"), ends_with("precip")) %>%
-  set_names(., stringr::str_replace(names(.), "(temp|precip)$", "_\\1") %>%
-              stringr::str_replace("(max|min)", "_\\1")) %>%
-  mutate(station_name = stringr::str_to_title(station_name)) %>%
-  filter(year >= 1975, year <= 2000) %>%
-  as_tibble()
-
-climate_data_moncton <- climate_data %>%
-  filter(station_name == "Moncton")
-
-# get locations
-climate_locations <- ecclimatelocs %>%
-  filter(`Station ID` %in% unique(c(5051, 5345, 735L, 3912, 2925, 6206, 2205, 6454, 
-                                 1586, 1650, 6693, 1786, 6527))) %>%
-  select(station_id = `Station ID`, station_name = Name, province = Province,
-         elevation_m = `Elevation (m)`, latitude = `Latitude (Decimal Degrees)`,
-         longitude = `Longitude (Decimal Degrees)`) %>%
-  mutate(station_name = stringr::str_to_title(station_name)) %>%
-  as_tibble()
+```{r, include = FALSE}
+# read local version to build
+valley_climate <- read_csv("data/valley_climate.csv", col_types = cols(.default = col_guess()))
+attr(valley_climate, "spec") <- NULL
 ```
 
-It's worth mentioning a little bit about what this data frame contains, since we'll be working with it for the rest of this tutorial. Each row contains a number of parameters that are available on a monthly basis from 13 Environment Canada climate stations, which were selected based on the longest running record available from each province/territory.
+```{r, eval = FALSE}
+valley_climate <- read_csv("http://paleolimbot.github.io/r4wrs/data/valley_climate.csv", 
+                         col_types = cols(.default = col_guess()))
+```
+
+It's worth mentioning a little bit about what this data frame contains, since we'll be working with it for the rest of this tutorial. Each row contains a number of parameters that are available on a monthly basis from two Environment Canada climate stations (Kentville Agricultural Research Station and Greenwood Station, both located in the [Annapolis Valley of Nova Scotia](https://en.wikipedia.org/wiki/Annapolis_Valley)). The `station_name`, `year`, and `month` columns identify where and when the values were measured, and the rest of the columns contain the measured values. The only column names that are slightly cryptic are `extr_max_temp` and `extr_min_temp`, which are the extreme maximum and minimum temperatures measured in that month, respectively.
 
 ## Using ggplot
 
 The Grammar of Graphics (the "gg" in "ggplot") is a way of describing a graphic that is derived from data, which in R is done using the `ggplot()` function and its many friends. Unlike other plotting functions, `ggplot()` builds graphics from the data up (rather than starting with a template of a graphic and working backward). We will start with an example:
 
 ```{r}
-ggplot(climate_data_moncton, aes(x = date, y = mean_temp, col = factor(month))) +
+ggplot(data = valley_climate, 
+       mapping = aes(x = date, y = total_precip, colour = station_name)) +
   geom_line()
 ```
 
-## Categorical/Grouping Variables
+- What the structure of the `ggplot()` call is
 
-X, Y, Colour, Shape, Linetype, Facets
+Steps for plotting:
 
-## Continuous Variables
+- Envision how you want your plot to look (draw it on paper if you have to!)
+- Setup the data (`select()`, `filter()`)
+- Setup your mapping (`aes()`)
+- Choose your geoms (`geom_*()`)
+- Make it look pretty
 
-X, Y, Colour, Size
+## Aesthetics
+
+Categorical/Grouping Variables get mapped to X, Y, Colour, Shape, Linetype
+
+Continuous Variables get mapped to X, Y, Colour, Size
+
+## Geometries
+
+Different geometry...
+
+```{r}
+ggplot(data = valley_climate, 
+       mapping = aes(x = date, y = total_precip, colour = station_name)) +
+  geom_point()
+```
+
+Multiple geometries!
+
+```{r}
+ggplot(data = valley_climate, 
+       mapping = aes(x = date, y = total_precip, colour = station_name)) +
+  geom_point() +
+  geom_line()
+```
+
+## Facets
+
+A way to make multiple groups
+
+## Make it look pretty
+
+### Labels
+
+`labs()` function
+
+### Scales
+
+`scale_*_discrete()`, `scale_*_continuous()`
 
 ## Summary
 
 Tutorial summary
+
+For more information, see the [data visualization](http://r4ds.had.co.nz/data-visualisation.html) chapter in [R for Data Science](http://r4ds.had.co.nz/).

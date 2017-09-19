@@ -29,13 +29,18 @@ eclocs <- function(locs) {
 canada_climate <- ecdata(c(5051, 5345, 735L, 3912, 2925, 6206, 2205, 6454, 
                          1586, 1650, 6693, 1786, 6527)) %>%
   write_csv("data/canada_climate.csv")
+
 canada_climate_locations <- eclocs(c(5051, 5345, 735L, 3912, 2925, 6206, 2205, 6454, 
                                      1586, 1650, 6693, 1786, 6527)) %>%
   write_csv("data/canada_climate_locs.csv")
 
 # write kentville, greenwood data for 2000 to 2003
 valley_climate <- ecdata(c(27141, 6354), year = 2000:2003) %>%
-  write_csv("data/valley_climate.csv")
+  write_csv("data/valley_climate.csv") %>%
+  write_tsv("data/valley_climate.tsv")
+
+# I've modified the xlsx file by hand to make it more realistic (dates as dates...)
+# writexl::write_xlsx(valley_climate, "data/valley_climate.xlsx")
 
 
 

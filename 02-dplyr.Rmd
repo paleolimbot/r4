@@ -5,7 +5,7 @@ In this tutorial we will introduce the **data frame**, or the object type that R
 
 ## Prerequisites
 
-The prerequisites for this tutorial is the `tidyverse` package. If this packagee isn't installed, you'll have to install it using `install.packages()`.
+The prerequisite for this tutorial is the `tidyverse` package. If this package isn't installed, you'll have to install it using `install.packages()`.
 
 ```{r, eval = FALSE}
 install.packages("tidyverse")
@@ -237,6 +237,16 @@ Unsurprisingly, there are twelve observations per year, since there are twelve r
 - Assign the data frame we just created to a variable, and inspect it using `View()` and `str()`. Which years were the warmest? Which years were the coldest?
 - Create a similar data frame to the one we just created but with precipitation. In which years did the most precipitation fall? (Hint: you will need to use the `sum()` function)
 - Most of the data are from Greenwood with fewer years from Kentville. How many years are available for each station, and what is the range of years where data is available for each station? (Hint: you will need to `group_by(station_name)`)
+
+## Extracting Columns
+
+When we use `select()`, we get back a data frame, however occasionally we need one or a few of the vectors that make up the data frame (recall from the last tutorial that data frames are a collection of column vectors). If we needed *just* the temperature values, we can use the `$` operator to extract a column vector.
+
+```{r}
+valley_climate$mean_temp
+```
+
+The problem with doing this is that our mean temperature values no longer have any context: half of them are from one station and half of them are from another, but this is not reflected without the other columns! Nevertheless, many R functions outside of the tidyverse require input as vectors (including many you've used so far, including `mean()`, `max()`, `min()`, etc.), and you will often see the `$` used in code written in other places to refer to columns. Functions in the tidyverse allow you to refer to columns by name (without the `$`) when used within specific functions (`summarise()` is a good example), so you should do this whenever you can! In the statistics tutorial we will start to use functions that are inconvenient to apply within the context of tidyverse and the pipe, but until then, get used to using `summarise()` and other tidyverse methods to call functions like `mean()`, `max()`, and `min()`. Later, we will introduce ways to calculate new columns using `mutate()`, which also let us refer to columns by name.
 
 ## Base R Subsetting vs. select() and filter()
 
