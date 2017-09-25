@@ -254,4 +254,4 @@ In the wild, there are many ways to select columns and filter rows. I highly rec
 
 ## Summary
 
-In this tutorial we introduced the use of `select()`, `filter()`, `arrange()`, `distinct()`, and the pipe (`%>%`). We also used `group_by()` and `summarise()` to provide summary statistics from a data frame. These functions are the building blocks of other powerful tools in the tidyverse. For more information, see the [Data transformation](http://r4ds.had.co.nz/transform.html) chapter in [R for Data Science](http://r4ds.had.co.nz/).
+In this tutorial we introduced the use of `select()`, `filter()`, `arrange()`, `distinct()`, and the pipe (`%>%`). We also used `group_by()` and `summarise()` to provide summary statistics from a data frame. These functions are the building blocks of other powerful tools in the tidyverse. For more information, see the [Data transformation](http://r4ds.had.co.nz/transform.html) chapter in [R for Data Science](http://r4ds.had.co.nz/). Another good resource is the [tidyverse, visualization, and manipulation basics](https://www.rstudio.com/resources/webinars/tidyverse-visualization-and-manipulation-basics/) tutorial from Garrett Grolemund.
