@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="creating-visualizations-using-ggplot.html">
-<link rel="next" href="using-rstudio-projects.html">
+<link rel="prev" href="computing-statistics-in-r.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -265,33 +265,311 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="preparing-and-loading-your-data-into-r" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Preparing and Loading your data into R</h1>
-<p>Intro</p>
-<p>Draws from <a href="http://r4ds.had.co.nz/transform.html">data transformation</a> and <a href="http://r4ds.had.co.nz/data-import.html">data import</a> from <a href="http://r4ds.had.co.nz/">R for Data Science</a>.</p>
-<div id="prerequisites-4" class="section level2">
-<h2><span class="header-section-number">4.1</span> Prerequisites</h2>
-<p>The prerequisites for this tutorial are <code>tidyverse</code>. If this package isn’t installed, you’ll have to install it using <code>install.packages()</code>.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</a></code></pre></div>
-<p>Load the package when you’re done! If there are errors, you may have not installed the above packages correctly!</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
-<p>Finally, you will need to obtain the sample data. We will be using the same sample data as before (<code>valley_climate</code>), but instead you will be using data files that contain this data in various forms. You can download this data in <a href="data/valley_climate.csv">comma-separated format (CSV)</a>, <a href="data/valley_climate.tsv">tab-separated format (TSV)</a>, and <a href="data/valley_climate.xlsx">Microsoft Excel format</a>, as well as the raw files (like you would download from <a href="http://climate.weather.gc.ca/">Environment Canada</a>) for <a href="data/valley_climate_kentville.csv">Kentville</a> and <a href="data/valley_climate_greenwood.csv">Greenwood</a>. You’ll need all six files to do the excercises in this tutorial.</p>
+<div id="rmarkdown-for-articles" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> RMarkdown for articles</h1>
+<p>RMarkdown is a way of using R code to help generate documents, such as scientific articles. A basic introduction to RMarkdown can be found in the <a href="http://r4ds.had.co.nz/r-markdown.html">RMarkdown chapter of R for data science</a>. This tutorial refers to a <a href="RMarkdownTemplate-dist.zip">template created specific to scientific articles</a>, which contains a template for creating scientific articles in the CWRS.</p>
+<div id="frontmatter" class="section level2">
+<h2><span class="header-section-number">7.1</span> Frontmatter</h2>
+<p>The frontmatter contains the options at the top of the RMarkdown document, which will usually come from a template. For scientific articles, mine usually looks like this. If you’re using the <strong>RMarkdown Article Template</strong>, this should already be in your frontmatter. Note that <code>StylesTemplate.docx</code>, <code>biblio.bib</code>, and <code>environmental-science-and-technology.csl</code> refer to files in the same directory as the <code>.Rmd</code> file, which are also included in the template.</p>
+<pre><code>---
+title: &quot;This is the title&quot;
+author: &quot;First Author^1\\*^, Second Author^2^, Graham A. Gagnon^1^&quot;
+date: &quot;^1^Centre for Water Resources Studies, Department of Civil &amp; Resource Engineering, Dalhousie University, 1360 Barrington St., Halifax, Nova Scotia ^2^Usually I use this for the affiliation text&quot;
+output: 
+  word_document:
+    fig_caption: yes
+    reference_docx: StylesTemplate.docx
+bibliography: biblio.bib
+csl: environmental-science-and-technology.csl
+---</code></pre>
 </div>
-<div id="preparing-data" class="section level2">
-<h2><span class="header-section-number">4.2</span> Preparing data</h2>
-<p>Data comes in a nearly infinite variety of formats and configurations. Occasionally, you are in charge of entering data yourself, in which case you can plan ahead on how your data looks.</p>
-</div>
-<div id="loading-data" class="section level2">
-<h2><span class="header-section-number">4.3</span> Loading data</h2>
-</div>
-<div id="cleaning-data" class="section level2">
-<h2><span class="header-section-number">4.4</span> Cleaning data</h2>
-</div>
-<div id="summary-3" class="section level2">
-<h2><span class="header-section-number">4.5</span> Summary</h2>
-<p>Tutorial summary</p>
-<p>Draws from <a href="http://r4ds.had.co.nz/transform.html">data transformation</a> and <a href="http://r4ds.had.co.nz/data-import.html">data import</a> from <a href="http://r4ds.had.co.nz/">R for Data Science</a>.</p>
+<div id="the-setup-chunk" class="section level2">
+<h2><span class="header-section-number">7.2</span> The <code>setup</code> chunk</h2>
+<p>The <code>setup</code> chunk is the first piece of R code in the file, and is where you setup the document. I use it to load packages and data, and to set the default place that the figures are rendered to (so I can access them afterward). It usually looks like this:</p>
+<pre><code>```{r setup, include=FALSE}
+library(tidyverse)
+# setting the default ggplot theme here is helpful
+theme_set(theme_bw())
 
+# this is a good place to load your datasets
+# my_data &lt;- read_csv(...)
+
+knitr::opts_chunk$set(echo = FALSE, dpi = 300, dev = c(&quot;png&quot;, &quot;pdf&quot;), fig.path = &quot;my_paper_files/&quot;)
+```</code></pre>
+<p>The <code>include=FALSE</code> chunk option means that nothing that happens here is output to the document (including the code). This is usually what you want for loading packages and datasets. Setting the default chunk option to <code>echo=FALSE</code> makes sure your code does not appear in the final document, which for article is almost always what you want.</p>
+<p>Note that every file you refer to in the document is relative to where the document is on your computer. If you’re using RStudio projects, it is usually convenient to put the .Rmd files in the same directory as your project (where the .Rproj file is), so that all your files get refered to consistently.</p>
+</div>
+<div id="rmarkdown-syntax" class="section level2">
+<h2><span class="header-section-number">7.3</span> RMarkdown Syntax</h2>
+<p>Regular paragraphs get typed in plain text, one paragraph per line (you’ll see when the line gets extra long it wraps around the end a looks like a real paragraph). In your text you can include superscripts by surrounding text with the carat <code>^</code> (e.g., <code>^210^Pb dating</code> becomes <sup>210</sup>Pb dating), you can include subscripts by surrounding text with the tilde <code>~</code> (e.g., <code>SO~4~</code> becomes SO<sub>4</sub>). Italic text uses the star <code>*</code> (e.g., <code>*this text is in italics*</code> becomes <em>this text is in italics</em>), Bold text uses the double star <code>**</code> (e.g., <code>**this text is bold**</code> becomes <strong>this text is bold</strong>), and “as-is” text (usually code) gets surrounded with backticks <code>`</code> (e.g.,<code>`this text is usually code`</code> becomes <code>this text is usually code</code>).</p>
+<p>References get included in the text in two ways. Without brackets as <code>@refID</code>: In my opinion, <span class="citation">R Core Team (<a href="#ref-r17">2017</a>)</span> writes the best programming language. With brackets as <code>[@refID]</code>: R is the best programming language <span class="citation">(R Core Team <a href="#ref-r17">2017</a>)</span>. The refID corresponds to the identifier in the <code>biblio.bib</code> file, which is in BibTeX format (exportable by any reference manager). To change the referencing format, update the text in the frontmatter that says <code>csl: something-like-this.csl</code> in the header information (I’ve included one for FACETS, which is name/date and ES&amp;T, which is numbered, in the template). You can get “about-right” styles from the <a href="https://www.zotero.org/styles">Zotero style repository</a>, but you might need to modify them (or your .bib file) to get your references exactly right. The reference list gets rendered at the end of the document.</p>
+<p>To include any of the special characters without having them to special things, you can escape them with a backslash <code>\</code> (e.g., <code>\* \^ \~ \\ \@ \`</code> becomes * ^ ~ \ @ `).</p>
+<p>You can include headers like this:</p>
+<pre><code># Level 1 (use for Abstract, Introduction, etc.)
+
+## Level 2
+
+### Level 3
+
+#### Level 4 (most journals won&#39;t allow level 4 or greater headers)</code></pre>
+</div>
+<div id="inserting-code-chunks" class="section level2">
+<h2><span class="header-section-number">7.4</span> Inserting code chunks</h2>
+<p>Code chunks get inserted like this (type the text here or use the <em>Insert</em> menu at the top of the screen):</p>
+<pre><code>```{r}
+# R code goes here
+# the results are printed by default
+starwars
+```</code></pre>
+<pre><code>## # A tibble: 87 x 13
+##    name     height  mass hair_color skin_color eye_color birth_year gender
+##    &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
+##  1 Luke Sk…    172    77 blond      fair       blue            19   male  
+##  2 C-3PO       167    75 &lt;NA&gt;       gold       yellow         112   &lt;NA&gt;  
+##  3 R2-D2        96    32 &lt;NA&gt;       white, bl… red             33   &lt;NA&gt;  
+##  4 Darth V…    202   136 none       white      yellow          41.9 male  
+##  5 Leia Or…    150    49 brown      light      brown           19   female
+##  6 Owen La…    178   120 brown, gr… light      blue            52   male  
+##  7 Beru Wh…    165    75 brown      light      blue            47   female
+##  8 R5-D4        97    32 &lt;NA&gt;       white, red red             NA   &lt;NA&gt;  
+##  9 Biggs D…    183    84 black      light      brown           24   male  
+## 10 Obi-Wan…    182    77 auburn, w… fair       blue-gray       57   male  
+## # ... with 77 more rows, and 5 more variables: homeworld &lt;chr&gt;,
+## #   species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p>In this template, echoing the code is turned off by default. However, you can turn this on if you are writing a coding tutorial like this:</p>
+<pre><code>```{r, echo=TRUE}
+# R code goes here
+# the results are printed by default
+starwars
+```</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="co"># R code goes here</span></a>
+<a class="sourceLine" id="cb168-2" data-line-number="2"><span class="co"># the results are printed by default</span></a>
+<a class="sourceLine" id="cb168-3" data-line-number="3">starwars</a></code></pre></div>
+<pre><code>## # A tibble: 87 x 13
+##    name     height  mass hair_color skin_color eye_color birth_year gender
+##    &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
+##  1 Luke Sk…    172    77 blond      fair       blue            19   male  
+##  2 C-3PO       167    75 &lt;NA&gt;       gold       yellow         112   &lt;NA&gt;  
+##  3 R2-D2        96    32 &lt;NA&gt;       white, bl… red             33   &lt;NA&gt;  
+##  4 Darth V…    202   136 none       white      yellow          41.9 male  
+##  5 Leia Or…    150    49 brown      light      brown           19   female
+##  6 Owen La…    178   120 brown, gr… light      blue            52   male  
+##  7 Beru Wh…    165    75 brown      light      blue            47   female
+##  8 R5-D4        97    32 &lt;NA&gt;       white, red red             NA   &lt;NA&gt;  
+##  9 Biggs D…    183    84 black      light      brown           24   male  
+## 10 Obi-Wan…    182    77 auburn, w… fair       blue-gray       57   male  
+## # ... with 77 more rows, and 5 more variables: homeworld &lt;chr&gt;,
+## #   species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p>To create a table, the best way is to use the <code>kable()</code> function in the <strong>knitr</strong> package. You can include markdown formatting (including references) in the figure caption. Renaming columns before they get to <code>knitr::kable()</code> is often helpful. Note that when generating a word document you will have to number the tables yourself.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb170-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb170-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="dt">Name =</span> name, <span class="st">`</span><span class="dt">Home World</span><span class="st">`</span> =<span class="st"> </span>homeworld, <span class="dt">Species =</span> species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb170-4" data-line-number="4"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">caption =</span> <span class="st">&quot;The first 10 characters in the dplyr starwars dataset.&quot;</span>)</a></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-103">Table 7.1: </span>The first 10 characters in the dplyr starwars dataset.</caption>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Home World</th>
+<th align="left">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Luke Skywalker</td>
+<td align="left">Tatooine</td>
+<td align="left">Human</td>
+</tr>
+<tr class="even">
+<td align="left">C-3PO</td>
+<td align="left">Tatooine</td>
+<td align="left">Droid</td>
+</tr>
+<tr class="odd">
+<td align="left">R2-D2</td>
+<td align="left">Naboo</td>
+<td align="left">Droid</td>
+</tr>
+<tr class="even">
+<td align="left">Darth Vader</td>
+<td align="left">Tatooine</td>
+<td align="left">Human</td>
+</tr>
+<tr class="odd">
+<td align="left">Leia Organa</td>
+<td align="left">Alderaan</td>
+<td align="left">Human</td>
+</tr>
+<tr class="even">
+<td align="left">Owen Lars</td>
+<td align="left">Tatooine</td>
+<td align="left">Human</td>
+</tr>
+<tr class="odd">
+<td align="left">Beru Whitesun lars</td>
+<td align="left">Tatooine</td>
+<td align="left">Human</td>
+</tr>
+<tr class="even">
+<td align="left">R5-D4</td>
+<td align="left">Tatooine</td>
+<td align="left">Droid</td>
+</tr>
+<tr class="odd">
+<td align="left">Biggs Darklighter</td>
+<td align="left">Tatooine</td>
+<td align="left">Human</td>
+</tr>
+<tr class="even">
+<td align="left">Obi-Wan Kenobi</td>
+<td align="left">Stewjon</td>
+<td align="left">Human</td>
+</tr>
+</tbody>
+</table>
+<p>Row- and Column- spanning is not possible in the Word table output, however you can make cells blank by making them <code>&quot;&quot;</code>, which sometimes has the desired effect:</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb171-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb171-3" data-line-number="3"><span class="st">  </span><span class="kw">unnest</span>(starships) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb171-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(<span class="dt">Name =</span> name, <span class="st">`</span><span class="dt">Home World</span><span class="st">`</span> =<span class="st"> </span>homeworld, <span class="dt">Species =</span> species, <span class="dt">Starships =</span> starships) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb171-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb171-6" data-line-number="6">    <span class="dt">Name =</span> <span class="kw">if_else</span>(<span class="kw">duplicated</span>(Name), <span class="st">&quot;&quot;</span>, Name),</a>
+<a class="sourceLine" id="cb171-7" data-line-number="7">    <span class="st">`</span><span class="dt">Home World</span><span class="st">`</span> =<span class="st"> </span><span class="kw">if_else</span>(<span class="kw">duplicated</span>(Name), <span class="st">&quot;&quot;</span>, <span class="st">`</span><span class="dt">Home World</span><span class="st">`</span>),</a>
+<a class="sourceLine" id="cb171-8" data-line-number="8">    <span class="dt">Species =</span> <span class="kw">if_else</span>(<span class="kw">duplicated</span>(Name), <span class="st">&quot;&quot;</span>, Species)</a>
+<a class="sourceLine" id="cb171-9" data-line-number="9">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb171-10" data-line-number="10"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">caption =</span> <span class="st">&quot;Starships of the first 10 characters in the dplyr starwars dataset.&quot;</span>)</a></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-104">Table 7.2: </span>Starships of the first 10 characters in the dplyr starwars dataset.</caption>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Home World</th>
+<th align="left">Species</th>
+<th align="left">Starships</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Luke Skywalker</td>
+<td align="left">Tatooine</td>
+<td align="left">Human</td>
+<td align="left">X-wing</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Tatooine</td>
+<td align="left">Human</td>
+<td align="left">Imperial shuttle</td>
+</tr>
+<tr class="odd">
+<td align="left">Darth Vader</td>
+<td align="left">Tatooine</td>
+<td align="left">Human</td>
+<td align="left">TIE Advanced x1</td>
+</tr>
+<tr class="even">
+<td align="left">Biggs Darklighter</td>
+<td align="left">Tatooine</td>
+<td align="left">Human</td>
+<td align="left">X-wing</td>
+</tr>
+<tr class="odd">
+<td align="left">Obi-Wan Kenobi</td>
+<td align="left">Stewjon</td>
+<td align="left">Human</td>
+<td align="left">Jedi starfighter</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Trade Federation cruiser</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Naboo star skiff</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Jedi Interceptor</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Belbullab-22 starfighter</td>
+</tr>
+</tbody>
+</table>
+<p>The best way to “roll your own” table is to create one using <code>tribble()</code>:</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1"><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb172-2" data-line-number="2">  <span class="op">~</span><span class="st">`</span><span class="dt">Column 1 Header</span><span class="st">`</span>, <span class="op">~</span><span class="st">`</span><span class="dt">Column 2 Header</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb172-3" data-line-number="3">  <span class="st">&quot;Value 1&quot;</span>, <span class="st">&quot;Value 2&quot;</span></a>
+<a class="sourceLine" id="cb172-4" data-line-number="4">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb172-5" data-line-number="5"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">caption =</span> <span class="st">&quot;Look! I made a table myself!&quot;</span>)</a></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-105">Table 7.3: </span>Look! I made a table myself!</caption>
+<thead>
+<tr class="header">
+<th align="left">Column 1 Header</th>
+<th align="left">Column 2 Header</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Value 1</td>
+<td align="left">Value 2</td>
+</tr>
+</tbody>
+</table>
+<p>Figure output is saved according to the “chunk label”, and depends on some “chunk options” for the caption and size. You should always specify the size, because the default size might change. They get saved in the figure path you specified in the <code>setup</code> chunk. Note that when generating a word document you will have to number the figures yourself.</p>
+<pre><code>```{r fig1-species, fig.width=7, fig.height=7, fig.cap=&quot;This is a figure generated from an R Chunk.&quot;}
+ggplot(starwars, aes(x = fct_reorder(species, species, length))) +
+  stat_count() +
+  coord_flip() +
+  labs(x = &quot;Number of characters&quot;, y = &quot;Species&quot;)
+```</code></pre>
+<div class="figure"><span id="fig:fig1-species"></span>
+<img src="r4cwrs_files/figure-html/fig1-species-1.png" alt="This is a figure generated from an R Chunk." width="672" />
+<p class="caption">
+Figure 7.1: This is a figure generated from an R Chunk.
+</p>
+</div>
+<p>Figures from a file or URL get inserted like this: <code>![Figure 1. This is a figure caption](path_to_figure.png)</code>. These don’t get saved to your figure output.</p>
+<div class="figure">
+<img src="https://www.rstudio.com/wp-content/uploads/2015/10/rstudio-300x260.png" alt="This is an image from a url." />
+<p class="caption">This is an image from a url.</p>
+</div>
+</div>
+<div id="equations" class="section level2">
+<h2><span class="header-section-number">7.5</span> Equations</h2>
+<p>To insert equations, you’ll have to use LaTeX in Math Mode. You can insert inline equations by surrounding text with <code>$</code> (e.g., <code>$A = \pi r^2)$</code> becomes <span class="math inline">\(A = \pi r^2)\)</span>, or insert full-width equations using the <code>$$</code>:</p>
+<pre><code>$$
+A = \pi r^2
+$$</code></pre>
+<p><span class="math display">\[
+A = \pi r^2
+\]</span></p>
+<p>As far as I know, it isn’t possible to automatically number equations without some complicated modifications. It’s usually easier to modify the final Word document to reflect this afterward.</p>
+</div>
+<div id="knitting-the-document" class="section level2">
+<h2><span class="header-section-number">7.6</span> Knitting the document</h2>
+<p>You can “knit” the document (generate the Word document) by clicking the <em>Knit</em> button at the top of the code window. This generates the Word document, which you can modify or send to non-R-friendly people. I highly suggest merging edits back into the document, so that the “definitive source of truth” for your article lives in the RMarkdown. Usually I need to add page breaks to the final document after the title page and abstract pages, and move the figures to the bottom of the document before it gets submitted.</p>
+</div>
+<div id="modifying-the-styles" class="section level2">
+<h2><span class="header-section-number">7.7</span> Modifying the styles</h2>
+<p>If you modify the styles in <code>StylesTemplate.docx</code>, you can change the appearance of the headers. Make sure to modify using the <em>Styles pane</em> in Word! Not all styling is possible this way, in particular for tables and bullet points. You can add page numbers and line numbers to the styles template, and they will show up in your generated document. I think you can add headers and footers as well.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-r17">
+<p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
 </div>
 </div>
             </section>
@@ -299,8 +577,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="creating-visualizations-using-ggplot.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="using-rstudio-projects.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="computing-statistics-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -330,7 +608,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/paleolimbot/r4cwrs/edit/master/04-data.Rmd",
+"link": "https://github.com/paleolimbot/r4cwrs/edit/master/07-RMarkdown-Tutorial.Rmd",
 "text": "Edit"
 },
 "download": null,
