@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R in the CWRS</title>
   <meta name="description" content="A collection of R lessons for CWRS projects">
-  <meta name="generator" content="bookdown 0.5.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="R in the CWRS" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="The R Programming Group at the CWRS">
 
 
-<meta name="date" content="2017-09-25">
+<meta name="date" content="2018-05-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -50,41 +50,69 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -147,14 +175,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html"><i class="fa fa-check"></i><b>3</b> Creating Visualizations using ggplot</a><ul>
 <li class="chapter" data-level="3.1" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#prerequisites-3"><i class="fa fa-check"></i><b>3.1</b> Prerequisites</a></li>
 <li class="chapter" data-level="3.2" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#using-ggplot"><i class="fa fa-check"></i><b>3.2</b> Using ggplot</a></li>
-<li class="chapter" data-level="3.3" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#aesthetics"><i class="fa fa-check"></i><b>3.3</b> Aesthetics</a></li>
-<li class="chapter" data-level="3.4" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#geometries"><i class="fa fa-check"></i><b>3.4</b> Geometries</a></li>
-<li class="chapter" data-level="3.5" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#facets"><i class="fa fa-check"></i><b>3.5</b> Facets</a></li>
-<li class="chapter" data-level="3.6" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#make-it-look-pretty"><i class="fa fa-check"></i><b>3.6</b> Make it look pretty</a><ul>
-<li class="chapter" data-level="3.6.1" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#labels"><i class="fa fa-check"></i><b>3.6.1</b> Labels</a></li>
-<li class="chapter" data-level="3.6.2" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#scales"><i class="fa fa-check"></i><b>3.6.2</b> Scales</a></li>
+<li class="chapter" data-level="3.3" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#creating-a-ggplot"><i class="fa fa-check"></i><b>3.3</b> Creating a <code>ggplot</code></a><ul>
+<li class="chapter" data-level="3.3.1" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#data"><i class="fa fa-check"></i><b>3.3.1</b> Data</a></li>
+<li class="chapter" data-level="3.3.2" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#aesthetic-mapping"><i class="fa fa-check"></i><b>3.3.2</b> Aesthetic mapping</a></li>
+<li class="chapter" data-level="3.3.3" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#layers"><i class="fa fa-check"></i><b>3.3.3</b> Layers</a></li>
 </ul></li>
-<li class="chapter" data-level="3.7" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#summary-2"><i class="fa fa-check"></i><b>3.7</b> Summary</a></li>
+<li class="chapter" data-level="3.4" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#aesthetics"><i class="fa fa-check"></i><b>3.4</b> Aesthetics</a></li>
+<li class="chapter" data-level="3.5" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#geometries"><i class="fa fa-check"></i><b>3.5</b> Geometries</a></li>
+<li class="chapter" data-level="3.6" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#facets"><i class="fa fa-check"></i><b>3.6</b> Facets</a></li>
+<li class="chapter" data-level="3.7" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#make-it-look-pretty"><i class="fa fa-check"></i><b>3.7</b> Make it look pretty</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#labels"><i class="fa fa-check"></i><b>3.7.1</b> Labels</a></li>
+<li class="chapter" data-level="3.7.2" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#scales"><i class="fa fa-check"></i><b>3.7.2</b> Scales</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="creating-visualizations-using-ggplot.html"><a href="creating-visualizations-using-ggplot.html#summary-2"><i class="fa fa-check"></i><b>3.8</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="preparing-and-loading-your-data-into-r.html"><a href="preparing-and-loading-your-data-into-r.html"><i class="fa fa-check"></i><b>4</b> Preparing and Loading your data into R</a><ul>
 <li class="chapter" data-level="4.1" data-path="preparing-and-loading-your-data-into-r.html"><a href="preparing-and-loading-your-data-into-r.html#prerequisites-4"><i class="fa fa-check"></i><b>4.1</b> Prerequisites</a></li>
@@ -229,21 +262,37 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="prerequisites-3" class="section level2">
 <h2><span class="header-section-number">3.1</span> Prerequisites</h2>
 <p>The prerequisite for this tutorial is the <code>tidyverse</code> package. If this package isn’t installed, you’ll have to install it using <code>install.packages()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</a></code></pre></div>
 <p>Load the packages when you’re done! If there are errors, you may have not installed the above packages correctly!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
 <p>Finally, you will need to obtain the example data. Copy/paste the statement below to load the sample data for this tutorial (you can also <a href="data/valley_climate.csv">download the dataset as a csv</a>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">valley_climate &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;http://paleolimbot.github.io/r4wrs/data/valley_climate.csv&quot;</span>, 
-                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">.default =</span> <span class="kw">col_guess</span>()))</code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1">valley_climate &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;http://paleolimbot.github.io/r4cwrs/data/valley_climate.csv&quot;</span>, </a>
+<a class="sourceLine" id="cb107-2" data-line-number="2">                           <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">.default =</span> <span class="kw">col_guess</span>()))</a></code></pre></div>
 <p>It’s worth mentioning a little bit about what this data frame contains, since we’ll be working with it for the rest of this tutorial. Each row contains a number of parameters that are available on a monthly basis from two Environment Canada climate stations (Kentville Agricultural Research Station and Greenwood Station, both located in the <a href="https://en.wikipedia.org/wiki/Annapolis_Valley">Annapolis Valley of Nova Scotia</a>). The <code>station_name</code>, <code>year</code>, and <code>month</code> columns identify where and when the values were measured, and the rest of the columns contain the measured values. The only column names that are slightly cryptic are <code>extr_max_temp</code> and <code>extr_min_temp</code>, which are the extreme maximum and minimum temperatures measured in that month, respectively.</p>
 </div>
 <div id="using-ggplot" class="section level2">
 <h2><span class="header-section-number">3.2</span> Using ggplot</h2>
 <p>The Grammar of Graphics (the “gg” in “ggplot”) is a way of describing a graphic that is derived from data, which in R is done using the <code>ggplot()</code> function and its many friends. Unlike other plotting functions, <code>ggplot()</code> builds graphics from the data up (rather than starting with a template of a graphic and working backward). We will start with an example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> valley_climate, 
-       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> total_precip, <span class="dt">colour =</span> station_name)) +
-<span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="kw">ggplot</span>(</a>
+<a class="sourceLine" id="cb108-2" data-line-number="2">  <span class="dt">data =</span> valley_climate, </a>
+<a class="sourceLine" id="cb108-3" data-line-number="3">  <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> total_precip, <span class="dt">colour =</span> station_name)</a>
+<a class="sourceLine" id="cb108-4" data-line-number="4">) <span class="op">+</span></a>
+<a class="sourceLine" id="cb108-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <p><img src="r4cwrs_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+</div>
+<div id="creating-a-ggplot" class="section level2">
+<h2><span class="header-section-number">3.3</span> Creating a <code>ggplot</code></h2>
+<p>A <code>ggplot</code> object gets created using the <code>ggplot()</code> function, which has elements “added” to it using the <code>+</code> operator. The <code>data</code> and <code>mapping</code> you provide in the initial <code>ggplot()</code> serve as the default values for every element you add to the plot afterward. In the above example, we create the <code>ggplot</code> and set the default <code>data</code> as the data frame contained in the <code>valley_climate</code> variable, and specify the default <code>mapping</code> from columns in <code>data</code> to the data required by each layer. Finally, we add a layer, which combines the <code>data</code>, the <code>mapping</code>, and the geometry to produce a plot with some lines on it that came from our data.</p>
+<div id="data" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Data</h3>
+<p>We’re using the</p>
+</div>
+<div id="aesthetic-mapping" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Aesthetic mapping</h3>
+<p>and set the default <code>mapping</code> to pass the <code>date</code> column of the <code>data</code> to each layer as the <code>x</code> value, the <code>total_precip</code> of the <code>data</code> to each layer as the <code>y</code> value, and the <code>station_name</code> column of the <code>data</code> to each layer as the <code>colour</code> value.</p>
+</div>
+<div id="layers" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Layers</h3>
 <ul>
 <li>What the structure of the <code>ggplot()</code> call is</li>
 </ul>
@@ -256,44 +305,45 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Make it look pretty</li>
 </ul>
 </div>
+</div>
 <div id="aesthetics" class="section level2">
-<h2><span class="header-section-number">3.3</span> Aesthetics</h2>
+<h2><span class="header-section-number">3.4</span> Aesthetics</h2>
 <p>Categorical/Grouping Variables get mapped to X, Y, Colour, Shape, Linetype</p>
 <p>Continuous Variables get mapped to X, Y, Colour, Size</p>
 </div>
 <div id="geometries" class="section level2">
-<h2><span class="header-section-number">3.4</span> Geometries</h2>
+<h2><span class="header-section-number">3.5</span> Geometries</h2>
 <p>Different geometry…</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> valley_climate, 
-       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> total_precip, <span class="dt">colour =</span> station_name)) +
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> valley_climate, </a>
+<a class="sourceLine" id="cb109-2" data-line-number="2">       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> total_precip, <span class="dt">colour =</span> station_name)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb109-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
 <p><img src="r4cwrs_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 <p>Multiple geometries!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> valley_climate, 
-       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> total_precip, <span class="dt">colour =</span> station_name)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
-<span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> valley_climate, </a>
+<a class="sourceLine" id="cb111-2" data-line-number="2">       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> total_precip, <span class="dt">colour =</span> station_name)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb111-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb111-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
 <p><img src="r4cwrs_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
 </div>
 <div id="facets" class="section level2">
-<h2><span class="header-section-number">3.5</span> Facets</h2>
+<h2><span class="header-section-number">3.6</span> Facets</h2>
 <p>A way to make multiple groups</p>
 </div>
 <div id="make-it-look-pretty" class="section level2">
-<h2><span class="header-section-number">3.6</span> Make it look pretty</h2>
+<h2><span class="header-section-number">3.7</span> Make it look pretty</h2>
 <div id="labels" class="section level3">
-<h3><span class="header-section-number">3.6.1</span> Labels</h3>
+<h3><span class="header-section-number">3.7.1</span> Labels</h3>
 <p><code>labs()</code> function</p>
 </div>
 <div id="scales" class="section level3">
-<h3><span class="header-section-number">3.6.2</span> Scales</h3>
+<h3><span class="header-section-number">3.7.2</span> Scales</h3>
 <p><code>scale_*_discrete()</code>, <code>scale_*_continuous()</code></p>
 </div>
 </div>
 <div id="summary-2" class="section level2">
-<h2><span class="header-section-number">3.7</span> Summary</h2>
+<h2><span class="header-section-number">3.8</span> Summary</h2>
 <p>Tutorial summary</p>
 <p>For more information, see the <a href="http://r4ds.had.co.nz/data-visualisation.html">data visualization</a> chapter in <a href="http://r4ds.had.co.nz/">R for Data Science</a>.</p>
 
@@ -323,10 +373,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -350,9 +401,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
