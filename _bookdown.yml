@@ -1,5 +1,5 @@
 book_filename: "r4cwrs"
-rmd_subdir: yes
+rmd_subdir: no
 language:
   ui:
     chapter_name: "Chapter "

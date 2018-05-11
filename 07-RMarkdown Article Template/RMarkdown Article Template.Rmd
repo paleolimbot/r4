@@ -1,0 +1,46 @@
+---
+title: "This is the title"
+author: "First Author^1\\*^, Second Author^2^, Graham A. Gagnon^1^"
+date: "^1^Centre for Water Resources Studies, Department of Civil & Resource Engineering, Dalhousie University, 1360 Barrington St., Halifax, Nova Scotia B3H 4R2 ^2^Usually I use this for the affiliation text"
+output: 
+  word_document:
+    fig_caption: yes
+    reference_docx: StylesTemplate.docx
+bibliography: biblio.bib
+csl: environmental-science-and-technology.csl
+---
+
+\*Corresponding author: my.email\@address.com
+
+```{r setup, include=FALSE}
+library(tidyverse)
+# setting the default ggplot theme here is helpful
+theme_set(theme_bw())
+
+# this is a good place to load your datasets
+# my_data <- read_csv(...)
+
+knitr::opts_chunk$set(echo = FALSE, dpi = 300, dev = c("png", "pdf"), fig.path = "my_paper_files/")
+```
+
+# Abstract
+
+
+
+Key words: Interesting, Topics, Usually
+
+# Introduction
+
+# Materials and methods
+
+# Results
+
+# Discussion
+
+# Conclusions
+
+# Acknowledgements
+
+We acknowledge the financial support of the Natural Sciences and Engineering Research Council (NSERC)/Halifax Water Industrial Research Chair in Water Quality & Treatment. Industrial partners in the Chair program include Halifax Water, LuminUltra Technologies Ltd., Cape Breton Regional Municipality Water Department, MANTECH Inc., AGAT Laboratories, and CBCL Ltd.
+
+# References

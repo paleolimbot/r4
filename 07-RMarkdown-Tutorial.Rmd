@@ -1,0 +1,177 @@
+
+# RMarkdown for articles
+
+```{r include=FALSE}
+system("zip -r RMarkdownTemplate-dist.zip \"07-RMarkdown Article Template\"", intern = TRUE)
+```
+
+RMarkdown is a way of using R code to help generate documents, such as scientific articles. A basic introduction to RMarkdown can be found in the [RMarkdown chapter of R for data science](http://r4ds.had.co.nz/r-markdown.html). This tutorial refers to a [template created specific to scientific articles](RMarkdownTemplate-dist.zip), which contains a template for creating scientific articles in the CWRS.
+
+## Frontmatter
+
+The frontmatter contains the options at the top of the RMarkdown document, which will usually come from a template. For scientific articles, mine usually looks like this. If you're using the **RMarkdown Article Template**, this should already be in your frontmatter. Note that `StylesTemplate.docx`, `biblio.bib`, and `environmental-science-and-technology.csl` refer to files in the same directory as the `.Rmd` file, which are also included in the template.
+
+    ---
+    title: "This is the title"
+    author: "First Author^1\\*^, Second Author^2^, Graham A. Gagnon^1^"
+    date: "^1^Centre for Water Resources Studies, Department of Civil & Resource Engineering, Dalhousie University, 1360 Barrington St., Halifax, Nova Scotia ^2^Usually I use this for the affiliation text"
+    output: 
+      word_document:
+        fig_caption: yes
+        reference_docx: StylesTemplate.docx
+    bibliography: biblio.bib
+    csl: environmental-science-and-technology.csl
+    ---
+
+## The `setup` chunk
+
+The `setup` chunk is the first piece of R code in the file, and is where you setup the document. I use it to load packages and data, and to set the default place that the figures are rendered to (so I can access them afterward). It usually looks like this:
+
+```{r, echo=FALSE, comment=""}
+"```{r setup, include=FALSE}
+library(tidyverse)
+# setting the default ggplot theme here is helpful
+theme_set(theme_bw())
+
+# this is a good place to load your datasets
+# my_data <- read_csv(...)
+
+knitr::opts_chunk$set(echo = FALSE, dpi = 300, dev = c(\"png\", \"pdf\"), fig.path = \"my_paper_files/\")
+```" %>% cat()
+```
+
+The `include=FALSE` chunk option means that nothing that happens here is output to the document (including the code). This is usually what you want for loading packages and datasets. Setting the default chunk option to `echo=FALSE` makes sure your code does not appear in the final document, which for article is almost always what you want.
+
+Note that every file you refer to in the document is relative to where the document is on your computer. If you're using RStudio projects, it is usually convenient to put the .Rmd files in the same directory as your project (where the .Rproj file is), so that all your files get refered to consistently.
+
+## RMarkdown Syntax
+
+Regular paragraphs get typed in plain text, one paragraph per line (you'll see when the line gets extra long it wraps around the end a looks like a real paragraph). In your text you can include superscripts by surrounding text with the carat `^` (e.g., `^210^Pb dating` becomes ^210^Pb dating), you can include subscripts by surrounding text with the tilde `~` (e.g., `SO~4~` becomes SO~4~). Italic text uses the star `*` (e.g., `*this text is in italics*` becomes *this text is in italics*), Bold text uses the double star `**` (e.g., `**this text is bold**` becomes **this text is bold**), and "as-is" text (usually code) gets surrounded with backticks `` ` `` (e.g.,`` `this text is usually code` `` becomes `this text is usually code`).
+
+References get included in the text in two ways. Without brackets as `@refID`: In my opinion, @r17 writes the best programming language. With brackets as `[@refID]`: R is the best programming language [@r17]. The refID corresponds to the identifier in the `biblio.bib` file, which is in BibTeX format (exportable by any reference manager). To change the referencing format, update the text in the frontmatter that says `csl: something-like-this.csl` in the header information (I've included one for FACETS, which is name/date and ES&T, which is numbered, in the template). You can get "about-right" styles from the [Zotero style repository](https://www.zotero.org/styles), but you might need to modify them (or your .bib file) to get your references exactly right. The reference list gets rendered at the end of the document.
+
+To include any of the special characters without having them to special things, you can escape them with a backslash `\` (e.g., `` \* \^ \~ \\ \@ \` `` becomes \* \^ \~ \\ \@ \`).
+
+You can include headers like this:
+
+    # Level 1 (use for Abstract, Introduction, etc.)
+    
+    ## Level 2
+    
+    ### Level 3
+    
+    #### Level 4 (most journals won't allow level 4 or greater headers)
+
+## Inserting code chunks
+
+Code chunks get inserted like this (type the text here or use the *Insert* menu at the top of the screen):
+
+```{r, echo=FALSE, comment=""}
+"```{r}
+# R code goes here
+# the results are printed by default
+starwars
+```" %>% cat()
+```
+    
+```{r, echo=FALSE}
+# R code goes here
+# the results are printed by default
+starwars
+```
+
+In this template, echoing the code is turned off by default. However, you can turn this on if you are writing a coding tutorial like this:
+
+```{r, echo=FALSE, comment=""}
+"```{r, echo=TRUE}
+# R code goes here
+# the results are printed by default
+starwars
+```" %>% cat()
+```
+
+```{r, echo=TRUE}
+# R code goes here
+# the results are printed by default
+starwars
+```
+
+To create a table, the best way is to use the `kable()` function in the **knitr** package. You can include markdown formatting (including references) in the figure caption. Renaming columns before they get to `knitr::kable()` is often helpful. Note that when generating a word document you will have to number the tables yourself.
+
+```{r, echo=TRUE}
+starwars %>%
+  head(10) %>%
+  select(Name = name, `Home World` = homeworld, Species = species) %>%
+  knitr::kable(caption = "The first 10 characters in the dplyr starwars dataset.")
+```
+
+Row- and Column- spanning is not possible in the Word table output, however you can make cells blank by making them `""`, which sometimes has the desired effect:
+
+```{r, echo=TRUE}
+starwars %>%
+  head(10) %>%
+  unnest(starships) %>%
+  select(Name = name, `Home World` = homeworld, Species = species, Starships = starships) %>%
+  mutate(
+    Name = if_else(duplicated(Name), "", Name),
+    `Home World` = if_else(duplicated(Name), "", `Home World`),
+    Species = if_else(duplicated(Name), "", Species)
+  ) %>%
+  knitr::kable(caption = "Starships of the first 10 characters in the dplyr starwars dataset.")
+```
+
+The best way to "roll your own" table is to create one using `tribble()`:
+
+```{r, echo=TRUE}
+tribble(
+  ~`Column 1 Header`, ~`Column 2 Header`,
+  "Value 1", "Value 2"
+) %>%
+  knitr::kable(caption = "Look! I made a table myself!")
+```
+
+Figure output is saved according to the "chunk label", and depends on some "chunk options" for the caption and size. You should always specify the size, because the default size might change. They get saved in the figure path you specified in the `setup` chunk. Note that when generating a word document you will have to number the figures yourself.
+
+```{r, echo=FALSE, comment=""}
+"```{r fig1-species, fig.width=7, fig.height=7, fig.cap=\"This is a figure generated from an R Chunk.\"}
+ggplot(starwars, aes(x = fct_reorder(species, species, length))) +
+  stat_count() +
+  coord_flip() +
+  labs(x = \"Number of characters\", y = \"Species\")
+```" %>% cat()
+```
+
+```{r fig1-species, fig.width=7, fig.height=7, fig.cap="This is a figure generated from an R Chunk.", echo=FALSE}
+ggplot(starwars, aes(x = fct_reorder(species, species, length))) +
+  stat_count() +
+  coord_flip() +
+  labs(x = "Number of characters", y = "Species") 
+```
+
+Figures from a file or URL get inserted like this: `![Figure 1. This is a figure caption](path_to_figure.png)`. These don't get saved to your figure output.
+
+![This is an image from a url.](https://www.rstudio.com/wp-content/uploads/2015/10/rstudio-300x260.png)
+
+## Equations
+
+To insert equations, you'll have to use LaTeX in Math Mode. You can insert inline equations by surrounding text with `$` (e.g., `$A = \pi r^2)$` becomes $A = \pi r^2)$, or insert full-width equations using the `$$`:
+
+```
+$$
+A = \pi r^2
+$$
+```
+
+$$
+A = \pi r^2
+$$
+
+As far as I know, it isn't possible to automatically number equations without some complicated modifications. It's usually easier to modify the final Word document to reflect this afterward.
+
+## Knitting the document
+
+You can "knit" the document (generate the Word document) by clicking the *Knit* button at the top of the code window. This generates the Word document, which you can modify or send to non-R-friendly people. I highly suggest merging edits back into the document, so that the "definitive source of truth" for your article lives in the RMarkdown. Usually I need to add page breaks to the final document after the title page and abstract pages, and move the figures to the bottom of the document before it gets submitted.
+
+## Modifying the styles
+
+If you modify the styles in `StylesTemplate.docx`, you can change the appearance of the headers. Make sure to modify using the *Styles pane* in Word! Not all styling is possible this way, in particular for tables and bullet points. You can add page numbers and line numbers to the styles template, and they will show up in your generated document. I think you can add headers and footers as well.
