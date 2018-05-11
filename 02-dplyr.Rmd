@@ -26,7 +26,7 @@ attr(valley_climate, "spec") <- NULL
 ```
 
 ```{r, eval = FALSE}
-valley_climate <- read_csv("http://paleolimbot.github.io/r4wrs/data/valley_climate.csv", 
+valley_climate <- read_csv("http://paleolimbot.github.io/r4cwrs/data/valley_climate.csv", 
                          col_types = cols(.default = col_guess()))
 ```
 
